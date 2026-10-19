@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>27 个官网，10709 条公告：一次招标数据采集复盘 · 鹤与鱼</title>
+<meta name="description" content="从 27 家医院官网采集 10709 条招标投标公告的完整复盘：两阶段采集、缓存与限速、正文与字段抽取、清洗口径、建模分析和踩过的坑。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/posts.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+</head>
+<body data-page="post" data-sub="posts">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <a href="posts.html">随笔</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">27 个官网，10709 条公告</span>
+  </nav>
+
+  <div class="article-layout">
+    <article class="card article-card">
+      <header class="article-head">
+        <div class="article-head__tags">
+          <span class="tag">数据</span>
+          <span class="tag tag--ink">采集复盘</span>
+        </div>
+        <h1 class="article-title">27 个官网，10709 条公告：一次招标数据采集复盘</h1>
+        <p class="article-lead">散在 27 个医院官网、格式各不相同的招标采购信息，怎么收成一张能横向比较、能建模的表。这篇写完整流程，也写翻车的地方。</p>
+        <div class="article-meta">
+          <span><svg class="icon"><use href="#i-calendar"></use></svg>2026-10-18</span>
+          <span><svg class="icon"><use href="#i-clock"></use></svg>8 分钟</span>
+          <span><svg class="icon"><use href="#i-tag"></use></svg>数据采集 / 清洗 / 建模</span>
+        </div>
+      </header>
+
+      <div class="prose">
+        <h2 id="s1">一、问题：27 个官网，没有一张统一的表</h2>
+        <p>这个项目要解决的不是算法问题，是一张表的问题。实验任务要求采集河北省任务清单里序号 21—45 共 25 条记录对应医疗机构的「招标 / 采购 / 中标 / 公示」栏目。25 条记录去重后是 22 家医院官网，另备 5 家三甲医院补采，最后真正入库的公告来自 <span class="posts-num">27</span> 家官网，时间从 2014-04-25 一直到 2026-10-12。</p>
+        <p>麻烦在模板不统一：列表页有的用 <code>?page=2</code>，有的用 <code>/index_2.html</code>；日期有的藏在标题后，有的只能从 URL 里认；正文被导航和页脚包着；附件有时直接是 PDF，有时是不带扩展名的下载接口。27 个站点逐个写死解析器不可维护——这是后面所有设计的出发点。</p>
+
+        <figure>
+          <img src="assets/img/dm-year.png" alt="折线图：医院招标公告按年份的数量变化" loading="lazy">
+          <figcaption>按年份的公告量：2019 年后明显上台阶，2024—2026 年每年都在 1600 条以上。</figcaption>
+        </figure>
+
+        <h2 id="s2">二、采集设计：两阶段、缓存、限速、附件</h2>
+        <p>参考脚本是一个单文件、按站点写死选择器的爬虫，我把它重写成「配置驱动 + 两阶段 + 缓存」：</p>
+        <div class="posts-steps">
+          <div class="posts-step">
+            <span class="posts-step__idx">1</span>
+            <div class="posts-step__body"><div class="posts-step__title">站点配置</div><p>sites.py 只描述站点：列表 URL 怎么生成、条目链接正则、是否单页、最大页数、有没有 JSON 接口。</p></div>
+          </div>
+          <div class="posts-step">
+            <span class="posts-step__idx">2</span>
+            <div class="posts-step__body"><div class="posts-step__title">第一阶段：列表发现</div><p>crawl_list.py 只翻列表页、去重，把标题 / 链接 / 日期落到 data/items/；连续两页没有新条目就停，避免死循环。</p></div>
+          </div>
+          <div class="posts-step">
+            <span class="posts-step__idx">3</span>
+            <div class="posts-step__body"><div class="posts-step__title">第二阶段：详情与附件</div><p>crawl_detail.py 逐条进详情页，抽正文和字段、下载附件，写 JSONL；已抓过的 URL 跳过，中断能接着跑。</p></div>
+          </div>
+        </div>
+        <p>两阶段的好处很直接：列表阶段挂了不影响已入库的详情；改抽取规则拿已落盘正文重跑，不用联网。正文落成 <code>details/&lt;站点&gt;/&lt;序号&gt;_&lt;日期&gt;_&lt;标题&gt;.txt</code>，文件名带日期和标题，核对时不用开数据库。附件按扩展名白名单过滤、单文件超过 80 MB 跳过，下载时带详情页的 Referer——有几个站点不带就直接 403。</p>
+
+        <h2 id="s3">三、字段抽取与清洗口径</h2>
+        <p>正文抽取是踩得最深的一处。最初用「文字量最大的块」，结果好几个站点的整页导航比正文还长，抽出来全是栏目名。后来改成「按非链接文字量打分」：先去掉 script / style / nav / header / footer 这类噪声容器，再遍历候选块算「文字数 − 链接文字数」，class / id 像 article、content、detail 的给 1.6 倍加成，取最高分那块。</p>
+        <p>结构化字段全是规则抽的，没有现成接口：</p>
+        <ul>
+          <li><strong>招标状态</strong>：标题优先、正文前 600 字兜底，按流标 / 变更 / 中标 / 公示 / 招标的顺序匹配。</li>
+          <li><strong>招标金额</strong>：先找「中标金额 / 成交金额」，没有就退到预算 / 最高限价；元、万元、亿元统一换算成元，并留原文与命中字段备查。</li>
+          <li><strong>中标单位</strong>：按「中标单位：…」匹配，再用公司特征词过滤，遇到「见附件 / 无 / 另行通知」就放弃。</li>
+          <li><strong>附件</strong>：扩展名白名单加「附件 / 下载 / 招标文件」字样，双重判断。</li>
+        </ul>
+        <p>抽完还有一道人工复核：把金额异常高的挑出来看，多数是把「万元」当「元」，或者把预算当成交价。</p>
+
+        <div class="callout callout--blue">
+          <span class="callout__icon"><svg class="icon"><use href="#i-info"></use></svg></span>
+          <div><div class="callout__title">一个关键口径</div><p>公告状态是规则从标题和正文打上的标签，不是官方字段；后面只能当分类标签，不能当特征。</p></div>
+        </div>
+
+        <p>清洗的标准是「这条公告和招标投标有没有关系」。人事招聘、预决算公开、医院简介、政策文件、健康科普都算无关，最后一共剔除 <span class="posts-num">1332</span> 条。最终入库公告 <span class="posts-num">10709</span> 条，详情页正文 <span class="posts-num">9579</span> 个，网页附件 <span class="posts-num">2830</span> 个。正文文件比公告数少的部分没有硬凑，缺就按缺失留在表里。</p>
+
+        <figure>
+          <img src="assets/img/dm-hospital.png" alt="横向条形图：各医院采集到的公告数量，头部明显高于尾部" loading="lazy">
+          <figcaption>各医院采集到的公告数量：最多的超过 3500 条，十多家不到 100 条。</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/dm-category.png" alt="横向条形图：采购标的类型的构成与条数" loading="lazy">
+          <figcaption>采购标的类型构成：信息化 / 智慧医院约 3000 条最多，医疗设备 / 器械与耗材 / 试剂次之。</figcaption>
+        </figure>
+
+        <h2 id="s4">四、分析：把字段变成能回答问题的表</h2>
+        <p>分析口径尽量贴着 SQL 的 <code>GROUP BY</code> 想：按医院、年、月、标的类型、中标单位分组。清洗后的数据上做了五类建模：金额回归、标的类型分类、高价值采购识别、流标风险识别、聚类与时间序列。</p>
+        <ul>
+          <li><strong>金额回归</strong>：目标取 lg(金额)，六模型五折交叉验证：随机森林 R²=0.425（对数尺度 RMSE 0.729），只用结构化特征的线性回归 0.189——「买的是什么」这段正文确实有增量信息。</li>
+          <li><strong>标的类型分类</strong>：7 分类，只用正文、剔除标签列，准确率约 0.71，宏平均 F1≈0.62。</li>
+          <li><strong>高价值采购识别</strong>：金额 &gt; 10 万元二分类，同分布 AUC≈0.91；时间外推（2024 前训练、2025 后预测）掉到 0.66。</li>
+          <li><strong>流标风险识别</strong>：随机五折 AUC 0.99，按医院分组验证降到 0.95，PR-AUC 从 0.89 掉到 0.62，模型排序还反转了。</li>
+          <li><strong>聚类与时序</strong>：KMeans 用轮廓系数定簇数、LDA 取主题；月度公告量用 SARIMA 按 AIC 选阶外推 6 个月，残差 Ljung-Box p=0.025，仍有残余自相关。</li>
+        </ul>
+
+        <figure>
+          <img src="assets/img/dm-reg.png" alt="条形图与散点图：金额回归六模型 R² 对比、预测与实际对照、残差分布" loading="lazy">
+          <figcaption>金额回归的六模型对比（lg 金额，五折交叉验证）：随机森林 R²≈0.43 最高。</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/dm-roc.png" alt="ROC 曲线：随机森林、逻辑回归与神经网络的假正率与真正率" loading="lazy">
+          <figcaption>高价值采购识别（金额 &gt; 10 万元）的 ROC：随机森林 AUC=0.913，逻辑回归 0.875，神经网络 0.870。</figcaption>
+        </figure>
+
+        <p>三个防坑点比模型更值得记：</p>
+        <div class="posts-takeaway">
+          <p><strong>防标签泄漏</strong>：状态和类型是规则打上的标签，不能当特征，所以分类只用正文。<strong>防数字泄漏</strong>：金额从正文数字抽出来，建模文本统一抹掉数字，否则回归会退化成「把数字再抄一遍」。<strong>防验证失真</strong>：有分组结构时随机五折会高估泛化，所以随机 5 折与按医院分组 / 按时间外推两组结果并列汇报。</p>
+        </div>
+
+        <figure>
+          <img src="assets/img/dm-ts.png" alt="折线图：月度公告量实际曲线与未来六个月的预测区间" loading="lazy">
+          <figcaption>月度公告量 SARIMA 预测：按 AIC 选阶外推 6 个月，阴影是 80% 置信区间。</figcaption>
+        </figure>
+
+        <h2 id="s5">五、踩过的坑</h2>
+        <ul>
+          <li><strong>编码</strong>：不少站点是 GBK / GB18030，猜错就整页乱码；按页面 charset、utf-8、gb18030、gbk 顺序试才稳定。</li>
+          <li><strong>日期</strong>：列表不显示日期时要从 URL 认：<code>/2024/1/1/</code>、<code>20240101</code>、<code>2024-01-01</code> 都遇到过；正文里再兜底，仍没有就留空，不猜。</li>
+          <li><strong>分页</strong>：有的站点第 1 页和首页不是同一个 URL，会重复抓；用 URL 去重加「连续两页无新增」兜底。</li>
+          <li><strong>限速</strong>：同主机默认间隔 2 秒（CRAWL_DELAY 可调）加随机抖动，单域名并发默认 1；403 / 429 冷却 15 秒起、指数退避，最多重试 3 次——慢，但没把对方站点打疼。</li>
+          <li><strong>缓存会「骗」你</strong>：命中缓存就不再请求，但忘了缓存里是旧页面就会以为规则没生效；所以「只读缓存重跑字段」单独做成脚本，改规则不联网。</li>
+        </ul>
+
+        <h2 id="s6">六、我学到了什么</h2>
+        <p>第一，口径写在代码前面：每个数字先定义清楚（什么算「入库」、什么算「无关」），再写实现，否则最后对不上数只能重跑。第二，采集是工程问题：两阶段、缓存、断点续跑、配置分层，比「用哪个库」重要得多。第三，验证要敢用难看的那种：随机五折 AUC 0.99 好看，按医院分 0.95、PR-AUC 0.62 难看，但它更接近换一家医院还能不能用的真相。</p>
+        <p>限制也留着：站点改版会让规则失效；附件里的表格只是落盘，还没做成结构化字段；27 家里 22 家来自任务清单、5 家来自备用名单，来源差异在报告里单独标了。下一步是把站点配置和列表解析抽成独立模块、补单元测试。</p>
+        <p>完整图表和口径在作品页：<a href="work-bidding.html">医院招标投标数据采集与分析</a>。</p>
+      </div>
+
+      <footer class="article-foot">
+        <div class="article-foot__tags">
+          <span class="tag tag--ink">数据采集</span>
+          <span class="tag tag--ink">Python</span>
+          <span class="tag tag--ink">数据清洗</span>
+          <span class="tag tag--ink">统计建模</span>
+        </div>
+        <button class="like-btn" type="button" data-like="post-bidding" data-like-base="12">
+          <svg class="icon"><use href="#i-heart"></use></svg>
+          <span>喜欢</span><span data-like-count>12</span>
+        </button>
+      </footer>
+    </article>
+
+    <aside class="article-aside">
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-list"></use></svg></span>
+          <h2 class="sec-head__title">本文目录</h2>
+        </div>
+        <nav class="toc-list" data-toc aria-label="文章目录">
+          <a href="#s1">一、问题：27 个官网，没有一张统一的表</a>
+          <a href="#s2">二、采集设计：两阶段、缓存、限速、附件</a>
+          <a href="#s3">三、字段抽取与清洗口径</a>
+          <a href="#s4">四、分析：把字段变成能回答问题的表</a>
+          <a href="#s5">五、踩过的坑</a>
+          <a href="#s6">六、我学到了什么</a>
+        </nav>
+      </section>
+
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-database"></use></svg></span>
+          <h2 class="sec-head__title">这篇的数字</h2>
+        </div>
+        <div class="posts-facts">
+          <div class="posts-facts__row"><span>覆盖医院官网</span><b>27 家</b></div>
+          <div class="posts-facts__row"><span>入库公告</span><b>10709 条</b></div>
+          <div class="posts-facts__row"><span>详情页正文</span><b>9579 份</b></div>
+          <div class="posts-facts__row"><span>网页附件</span><b>2830 个</b></div>
+          <div class="posts-facts__row"><span>剔除无关公告</span><b>1332 条</b></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-about"></use></svg></span>
+          <h2 class="sec-head__title">关于我</h2>
+        </div>
+        <p class="muted" style="font-size:12.5px">应用统计学 2027 届，在找数据分析相关的工作。这里放的都是在做的项目与写下来的复盘。</p>
+        <div class="btn-row" style="margin-top:12px">
+          <a class="btn btn--sm btn--soft" href="works.html">看作品</a>
+          <a class="btn btn--sm btn--ghost" href="about.html">关于</a>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="next-prev" aria-label="上一篇下一篇">
+    <a href="posts.html"><div class="next-prev__label">← 回到列表</div><div class="next-prev__title">全部随笔</div></a>
+    <a class="next-prev--next" href="post-wargame.html"><div class="next-prev__label">下一篇 →</div><div class="next-prev__title">把纸面兵棋做成能跑、能测、能联机的程序</div></a>
+  </nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

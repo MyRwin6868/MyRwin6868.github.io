@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>《最后的狼踪》不对称战术兵棋 · 鹤与鱼</title>
+<meta name="description" content="把一套纸面兵棋规则做成能真跑、能测、能联机的可玩原型：16×28 六边形地图、12 回合、规则引擎、剧本编辑器、AI 对战与观战回放。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/works.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+</head>
+<body data-page="work">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <a href="works.html">作品</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">《最后的狼踪》不对称战术兵棋</span>
+  </nav>
+
+  <section class="card page-hero" data-reveal>
+    <div class="page-hero__tag"><span class="tag tag--red">兵棋作品 · WARGAME</span></div>
+    <h1 class="page-hero__title">《最后的狼踪》<span>不对称战术兵棋</span></h1>
+    <p class="page-hero__lead">狼群潜入牧场、猎杀牲畜、带战果撤离；牧民守畜、封堵洞口。把一套纸面规则做成能真跑、能测、能联机的可玩原型。</p>
+    <div class="page-hero__meta">
+      <span><svg class="icon"><use href="#i-tag"></use></svg>规则设计 · 程序原型</span>
+      <span><svg class="icon"><use href="#i-dice"></use></svg>16×28 六边形 · 12 回合</span>
+      <span><svg class="icon"><use href="#i-code"></use></svg>原生 JS · Node 内置模块</span>
+      <span><svg class="icon"><use href="#i-shield"></use></svg>~899 项自动化检查</span>
+    </div>
+    <div class="page-hero__art" aria-hidden="true"><svg class="icon"><use href="#i-dice"></use></svg></div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="work-detail-hero">
+      <div class="work-detail-cover">
+        <img src="assets/img/game-board.jpg" alt="第 4 步牧民反制部署界面：左侧六边形棋盘，右侧买点部署与战报" loading="lazy">
+      </div>
+      <div class="works-overview">
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-info"></use></svg></span>
+          <h2 class="sec-head__title">项目概览</h2>
+          <span class="sec-head__count">规则 → 引擎 → 可玩原型</span>
+        </div>
+        <p class="works-overview__lead">一套纸面兵棋规则，落到可执行的规则引擎上：引擎与界面分离，可以脱离浏览器单独跑测试。页面端有网页原型、剧本编辑器、人机对战与观战回放、本地联机对战（账号与房间管理）。主体只用 Node 内置模块，不依赖第三方框架，改规则或数值后跑一条命令就能回归。</p>
+        <div class="detail-meta-grid">
+          <div class="detail-meta">
+            <div class="detail-meta__label">项目类型</div>
+            <div class="detail-meta__value">个人项目 · 独立开发</div>
+          </div>
+          <div class="detail-meta">
+            <div class="detail-meta__label">阵营结构</div>
+            <div class="detail-meta__value">狼群 vs 牧民（不对称）</div>
+          </div>
+          <div class="detail-meta">
+            <div class="detail-meta__label">地图与回合</div>
+            <div class="detail-meta__value">16×28 六边形 · 12 回合</div>
+          </div>
+          <div class="detail-meta">
+            <div class="detail-meta__label">对战形态</div>
+            <div class="detail-meta__value">人人 / 人机 / AI / 观战 / 联机</div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--soft btn--sm" href="post-wargame.html"><svg class="icon"><use href="#i-posts"></use></svg>读开发复盘</a>
+          <a class="btn btn--ghost btn--sm" href="work-film.html"><svg class="icon"><use href="#i-film"></use></svg>看宣传片</a>
+        </div>
+      </div>
+    </div>
+    <div class="metric-row works-metrics">
+      <div class="metric">
+        <div class="metric__num"><b data-count="167">167</b></div>
+        <div class="metric__label">JS / MJS 文件</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="60">60</b></div>
+        <div class="metric__label">Git 提交</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="30">30</b></div>
+        <div class="metric__label">测试文件</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num">~<b data-count="899">899</b></div>
+        <div class="metric__label">自动化检查项</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="16">16</b><small>×28</small></div>
+        <div class="metric__label">六边形地图</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="12">12</b></div>
+        <div class="metric__label">回合</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-dice"></use></svg></span>
+      <h2 class="sec-head__title">核心玩法</h2>
+      <span class="sec-head__count">一张地图 · 两个阵营</span>
+    </div>
+    <div class="prose works-prose">
+      <p>这是一场不对称的追猎：<strong>狼群</strong>潜入牧场、猎杀牲畜、带着战果撤离；<strong>牧民</strong>守畜、封堵洞口。同一张 16×28 的六边形地图、同样 12 个回合，两边要做的事完全不同。</p>
+      <h3>一局怎么开始</h3>
+      <ul>
+        <li>选模式，再挑边：打狼群、打牧民，或者让两个大模型同桌对打。</li>
+        <li>四步部署：双方依次落子、买点补强；支持「一键布阵」，同一套开局可以复现。</li>
+        <li>行动阶段按回合推进：移动、攻击、结算，一步一步都能记录与回放。</li>
+      </ul>
+      <h3>为什么做回放</h3>
+      <p>每一步都可以复盘：回放里点算子就能看属性卡，攻 / 防 / 移 / 体积和加减来源一屏给全。规则改完、数值调完，回放还能用来对照「改动到底改变了什么」。</p>
+      <blockquote>
+        <p>ONE MAP. TWO SIDES. NO SECOND CHANCE.</p>
+        <cite>宣传片收尾字幕</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-works"></use></svg></span>
+      <h2 class="sec-head__title">系统构成</h2>
+      <span class="sec-head__count">规则 / 界面 / AI / 联机 / 测试</span>
+    </div>
+    <div class="works-feature-grid">
+      <div class="works-feature">
+        <span class="works-feature__icon"><svg class="icon"><use href="#i-code"></use></svg></span>
+        <div class="works-feature__title">规则引擎</div>
+        <div class="works-feature__desc">规则与机制写成可执行的引擎，和界面分离；能脱离浏览器单独跑对局与测试。</div>
+      </div>
+      <div class="works-feature">
+        <span class="works-feature__icon"><svg class="icon"><use href="#i-works"></use></svg></span>
+        <div class="works-feature__title">网页界面</div>
+        <div class="works-feature__desc">棋盘、部署、动作浮卡、战报与算子状态卡；左键选中、右键取消、滚轮缩放、空格回全图。</div>
+      </div>
+      <div class="works-feature">
+        <span class="works-feature__icon"><svg class="icon"><use href="#i-list"></use></svg></span>
+        <div class="works-feature__title">剧本编辑器</div>
+        <div class="works-feature__desc">涂抹牧场、袭击场、撤离区，调棋盘尺寸与回合数；剧本能导入导出、存进图库。</div>
+      </div>
+      <div class="works-feature">
+        <span class="works-feature__icon works-feature__icon--red"><svg class="icon"><use href="#i-sparkle"></use></svg></span>
+        <div class="works-feature__title">AI 对战</div>
+        <div class="works-feature__desc">人机对战可以选边；也能填 API 地址让大模型上场，自打一局并留下回放。</div>
+      </div>
+      <div class="works-feature">
+        <span class="works-feature__icon"><svg class="icon"><use href="#i-link"></use></svg></span>
+        <div class="works-feature__title">本地联机</div>
+        <div class="works-feature__desc">账号与房间管理、开房间邀请对手；观战回放与对局记录都绑在剧本上。</div>
+      </div>
+      <div class="works-feature">
+        <span class="works-feature__icon"><svg class="icon"><use href="#i-shield"></use></svg></span>
+        <div class="works-feature__title">自动化测试</div>
+        <div class="works-feature__desc">30 个测试文件、约 899 项检查，覆盖地图坐标、数值表、对局模拟与回放保真。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-gallery"></use></svg></span>
+      <h2 class="sec-head__title">界面截图</h2>
+      <span class="sec-head__count">8 张</span>
+    </div>
+    <p class="works-note">截图来自实际运行的网页原型，图注按界面内容写，点开可看大图。</p>
+    <div class="figure-grid works-figure-grid" data-lightbox-scope>
+      <figure class="gallery-item" data-caption="对局平台主界面：人人对战、人机对战、大模型对战与观战回放入口">
+        <img src="assets/img/game-platform.jpg" alt="对局平台主界面，列出人人对战、人机对战、大模型对战与观赛回放入口" loading="lazy">
+        <figcaption>对局平台主界面：人人对战、人机对战、大模型对战与观战回放入口。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="第 4 步牧民反制部署：买点部署、剩余买点与即时战报">
+        <img src="assets/img/game-board.jpg" alt="第 4 步牧民反制部署界面，左侧六边形棋盘，右侧买点部署与战报" loading="lazy">
+        <figcaption>第 4 步「牧民反制部署」：买点部署、剩余买点与即时战报。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="剧本编译器：可调棋盘尺寸与回合数，涂抹牧场、袭击场与撤离区">
+        <img src="assets/img/game-scenario.jpg" alt="剧本编译器界面，中间为六边形棋盘，右侧是棋盘尺寸、地形与区域设置" loading="lazy">
+        <figcaption>剧本编译器：可调棋盘尺寸与回合数，涂抹牧场、袭击场与撤离区。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="观战回放：逐步回放、事件时间轴与积分估算">
+        <img src="assets/img/game-replay.jpg" alt="观战回放界面，包含棋盘、事件时间轴与回放控制条" loading="lazy">
+        <figcaption>观战回放：逐步回放、事件时间轴与积分估算。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="在线大厅：账号登录、开房间与房间列表">
+        <img src="assets/img/game-lobby.jpg" alt="在线大厅界面，包含账号登录、开房间与房间列表" loading="lazy">
+        <figcaption>在线大厅：账号登录、开房间与房间列表。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="Bot 教练台：改开局部署数值、测技巧水平，再把调整提交给 AI">
+        <img src="assets/img/game-coach.jpg" alt="Bot 教练台界面，左侧调数值，右侧测技巧水平并提交给 AI" loading="lazy">
+        <figcaption>Bot 教练台：改开局部署数值、测技巧水平，再把调整提交给 AI。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="地图与算子局部特写：牧场围栏、羊群与狼群算子">
+        <img src="assets/img/game-counter.jpg" alt="地图与算子局部特写，能看到牧场围栏、羊群与狼群算子" loading="lazy">
+        <figcaption>地图与算子局部特写：牧场围栏、羊群与狼群算子。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="完整六边形地图：牧场围栏、森林、羊群与算子分布">
+        <img src="assets/img/game-map.jpg" alt="完整的六边形地图，能看到牧场围栏、森林、羊群与算子分布" loading="lazy">
+        <figcaption>完整六边形地图：牧场围栏、森林、羊群与算子分布。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-sparkle"></use></svg></span>
+      <h2 class="sec-head__title">AI 协作与排障</h2>
+      <span class="sec-head__count">多 Agent · 日志取证</span>
+    </div>
+    <div class="prose works-prose">
+      <ul>
+        <li><strong>多 Agent 协作开发</strong>：负责子代理的角色设计、派工模板与验收口径，把大块工作拆给不同角色并行推进。</li>
+        <li><strong>日志取证 + A/B 对照</strong>：定位「任务下发故障」时，把一次决策的分数拆开归因，对照两组日志找出偏差来源。</li>
+        <li><strong>测试兜底</strong>：自动化测试覆盖地图坐标、数值表、对局模拟与回放保真，改规则或数值后跑一条命令就能回归。</li>
+      </ul>
+      <div class="callout callout--blue">
+        <span class="callout__icon"><svg class="icon"><use href="#i-info"></use></svg></span>
+        <div>
+          <div class="callout__title">为什么把引擎和界面分开</div>
+          <p>兵棋的坑大多在规则边界：坐标换算、数值表、回合状态、回放是否保真。把这些放进不依赖浏览器的引擎里，测试才能跑得又快又稳。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-shield"></use></svg></span>
+      <h2 class="sec-head__title">技术选型与限制</h2>
+      <span class="sec-head__count">做成了什么 · 还差什么</span>
+    </div>
+    <div class="two-col">
+      <div class="prose works-prose">
+        <h3>技术选型</h3>
+        <ul>
+          <li>不依赖第三方框架，主体只用 Node 内置模块，网页端是原生 HTML / CSS / JS。</li>
+          <li>规则引擎与界面分离：改规则、改数值后，一条命令跑回归，不用打开浏览器手动点。</li>
+          <li>对局记录与回放都绑在剧本上，同一套剧本可以反复对照，也可以导出给别人。</li>
+          <li>60 次 Git 提交、30 个测试文件、约 899 项自动化检查，是这个项目最实在的部分。</li>
+        </ul>
+      </div>
+      <div class="prose works-prose">
+        <h3>限制与下一步</h3>
+        <ul>
+          <li>目前是可玩原型，重点在规则、引擎与工程化，不是完整商业游戏；美术和内容量都还有空间。</li>
+          <li>本地联机对战依赖本机起服务；大模型对战需要自备 API 地址与密钥。</li>
+          <li>下一步：继续补剧本与数值平衡，完善联机与观战体验，把更多规则边界写进自动化测试。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <nav class="next-prev" aria-label="作品导航">
+    <a href="work-bidding.html">
+      <div class="next-prev__label">← 上一个作品</div>
+      <div class="next-prev__title">医院招标投标数据采集与分析</div>
+    </a>
+    <a class="next-prev--next" href="work-film.html">
+      <div class="next-prev__label">下一个作品 →</div>
+      <div class="next-prev__title">《最后的狼踪》95 秒宣传片</div>
+    </a>
+  </nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

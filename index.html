@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>鹤与鱼 · MyRwin 的小站</title>
+<meta name="description" content="鹤与鱼 · MyRwin 的个人小站：应用统计学 2027 届，记录数据采集与分析、兵棋设计与程序化影像。作品、图集与随笔都在这里。">
+<meta name="theme-color" content="#2f80ed">
+<meta property="og:title" content="鹤与鱼 · MyRwin 的小站">
+<meta property="og:description" content="数据、兵棋与影像之间，一只鹤和一条鱼的栖身之所。">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<!-- 防止主题闪烁：在 CSS 之前先读本地主题 -->
+<script>
+  try {
+    var d = localStorage.getItem("mrywin.decor");
+    if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn";
+    document.documentElement.setAttribute("data-decor", d);
+  } catch (e) {}
+</script>
+<style>
+  .hero-quote [data-typewriter] { max-width: 560px; text-align: center; }
+  .post-mini-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 560px) { .post-mini-grid { grid-template-columns: minmax(0, 1fr); } }
+  .stream-gap { display: grid; gap: var(--gap); }
+</style>
+</head>
+<body data-page="home">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell">
+  <div class="home-layout">
+
+    <!-- 左栏：个人卡 + 播放器 -->
+    <aside class="rail rail--left" aria-label="个人信息与音乐播放器">
+      <section class="card profile-card" data-reveal>
+        <div class="profile-card__avatar" data-avatar></div>
+        <h1 class="profile-card__name">MyRwin <span class="profile-card__handle">鹤与鱼</span></h1>
+        <span class="profile-card__status">在线 · 在找工作</span>
+        <p class="profile-card__tagline">应用统计学 2027 届。把「取数 → 清洗 → 建模 → 出报告」跑通，也把兵棋和影像做成<strong>能玩、能看</strong>的东西。</p>
+        <div class="profile-card__stats">
+          <div><div class="profile-stat__num" data-count data-stat="works">4</div><div class="profile-stat__label">作品</div></div>
+          <div><div class="profile-stat__num" data-count data-stat="gallery">30</div><div class="profile-stat__label">图集</div></div>
+          <div><div class="profile-stat__num" data-count data-stat="posts">4</div><div class="profile-stat__label">随笔</div></div>
+        </div>
+        <div class="profile-card__actions">
+          <a class="btn btn--primary btn--sm" href="works.html">看作品</a>
+          <a class="btn btn--ghost btn--sm" href="#guestbook">留言</a>
+        </div>
+        <div class="profile-card__links">
+          <button class="profile-link" type="button" data-copy-email title="联系我" aria-label="联系我">
+            <svg class="icon"><use href="#i-mail"></use></svg>
+          </button>
+          <a class="profile-link" href="about.html" title="关于我" aria-label="关于我"><svg class="icon"><use href="#i-about"></use></svg></a>
+          <a class="profile-link" href="gallery.html" title="图集" aria-label="图集"><svg class="icon"><use href="#i-gallery"></use></svg></a>
+          <a class="profile-link" href="posts.html" title="随笔" aria-label="随笔"><svg class="icon"><use href="#i-posts"></use></svg></a>
+        </div>
+      </section>
+
+      <section class="card player-card" id="music-player" data-reveal data-reveal-delay="80" aria-label="音乐播放器">
+        <div class="player-head">
+          <span class="player-head__title"><svg class="icon"><use href="#i-music"></use></svg>音乐播放器</span>
+          <button class="player-head__list" type="button" data-player-list-btn aria-label="播放列表">
+            <svg class="icon"><use href="#i-list"></use></svg>
+          </button>
+        </div>
+        <div class="player-art">
+          <div class="player-art__disc" data-player-art></div>
+        </div>
+        <div class="player-song">
+          <div class="player-song__title" data-player-title>鲸落</div>
+          <div class="player-song__artist" data-player-artist>Whale Fall · 程序生成</div>
+        </div>
+        <div class="player-controls">
+          <button class="player-btn" type="button" data-player-prev aria-label="上一首"><svg class="icon"><use href="#i-prev"></use></svg></button>
+          <button class="player-btn player-btn--main" type="button" data-player-toggle aria-label="播放"><svg class="icon"><use href="#i-play"></use></svg></button>
+          <button class="player-btn" type="button" data-player-next aria-label="下一首"><svg class="icon"><use href="#i-next"></use></svg></button>
+        </div>
+        <div class="player-progress">
+          <span class="player-time" data-player-cur>0:00</span>
+          <div class="player-bar" data-player-bar role="slider" tabindex="0" aria-label="播放进度">
+            <div class="player-bar__fill" data-player-fill></div>
+          </div>
+          <span class="player-time player-time--total" data-player-dur>1:44</span>
+        </div>
+        <div class="player-volume">
+          <svg class="icon"><use href="#i-volume"></use></svg>
+          <input type="range" min="0" max="100" value="70" data-player-volume aria-label="音量">
+          <span class="player-volume__val" data-player-volval>70</span>
+        </div>
+        <div class="player-list" data-player-list></div>
+      </section>
+    </aside>
+
+    <!-- 中栏 -->
+    <div class="stream">
+
+      <section class="card hero-card" data-reveal>
+        <svg class="hero-card__constellation" viewBox="0 0 620 300" aria-hidden="true">
+          <path class="c-line" d="M468 34 538 22 600 48 566 96 500 84"/>
+          <path class="c-line" d="M86 236 150 214 206 246 178 286"/>
+          <path class="c-line" d="M538 22 566 96M150 214 178 286"/>
+          <circle class="c-node" cx="468" cy="34" r="2.6"/><circle class="c-node" cx="538" cy="22" r="2"/>
+          <circle class="c-red" cx="600" cy="48" r="2.8"/><circle class="c-node" cx="566" cy="96" r="2.2"/>
+          <circle class="c-node" cx="500" cy="84" r="2.4"/>
+          <circle class="c-node" cx="86" cy="236" r="2.2"/><circle class="c-node" cx="150" cy="214" r="2.6"/>
+          <circle class="c-node" cx="206" cy="246" r="2"/><circle class="c-star" cx="178" cy="286" r="2"/>
+          <circle class="c-star" cx="60" cy="60" r="1.5"/><circle class="c-star" cx="330" cy="150" r="1.4"/>
+          <circle class="c-star" cx="580" cy="200" r="1.5"/><circle class="c-star" cx="250" cy="40" r="1.3"/>
+        </svg>
+        <svg class="hero-card__deco hero-card__deco--crane" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-crane"></use></svg>
+        <svg class="hero-card__deco hero-card__deco--fish" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-whale"></use></svg>
+
+        <p class="hero-hello">Hello! 欢迎来到 <strong>鹤与鱼</strong></p>
+        <div class="hero-quote">
+          <div data-typewriter='["把数据、兵棋和影像，收进这只小鲸鱼的口袋。","这里放做出来的东西，也放踩过的坑与复盘。","蓝是海，白是鹤，红是丹顶，剩下的慢慢补。"]'>
+            <span class="hero-quote__text">把数据、兵棋和影像，都收进这只小鲸鱼的口袋里。</span>
+          </div>
+          <p class="hero-quote__sub">一个应用统计学学生的作品与随笔 <em>·</em> 不放真实姓名，只用作品说话</p>
+        </div>
+        <div class="hero-chips">
+          <a class="hero-chip" href="works.html"><svg class="icon"><use href="#i-works"></use></svg>作品</a>
+          <a class="hero-chip hero-chip--red" href="gallery.html"><svg class="icon"><use href="#i-gallery"></use></svg>图集</a>
+          <a class="hero-chip" href="posts.html"><svg class="icon"><use href="#i-posts"></use></svg>随笔</a>
+        </div>
+        <div class="hero-card__seal">鹤<br>与鱼</div>
+      </section>
+
+      <section class="stream-gap" data-reveal>
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-posts"></use></svg></span>
+          <h2 class="sec-head__title">最近在写 <span class="sec-head__count">4 篇</span></h2>
+          <a class="sec-head__more" href="posts.html">全部随笔 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+        <div class="post-mini-grid">
+          <article class="card post-card" data-reveal>
+            <a class="post-card__cover" href="post-bidding.html" aria-label="阅读：27 个官网，10709 条公告">
+              <img src="assets/img/dm-year.png" alt="医院招标公告按年份分布图" loading="lazy">
+              <span class="post-card__badge">数据 · 随笔</span>
+            </a>
+            <div class="post-card__body">
+              <div class="post-card__meta"><span class="tag">采集复盘</span><span>2026/10/18</span></div>
+              <h3 class="post-card__title"><a href="post-bidding.html">27 个官网，10709 条公告：一次招标数据采集复盘</a></h3>
+              <p class="post-card__excerpt">散在 27 个官网、格式各不相同的招标采购信息，怎么收成一张能横向比较、能建模的表。</p>
+              <div class="post-card__foot">
+                <span><svg class="icon"><use href="#i-clock"></use></svg> 8 分钟</span>
+                <span class="post-card__more">读一读 <svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+              </div>
+            </div>
+          </article>
+          <article class="card post-card" data-reveal data-reveal-delay="60">
+            <a class="post-card__cover" href="post-wargame.html" aria-label="阅读：把纸面兵棋做成能联机的程序">
+              <img src="assets/img/game-board.jpg" alt="《最后的狼踪》六边形棋盘截图" loading="lazy">
+              <span class="post-card__badge post-card__badge--red">兵棋 · 随笔</span>
+            </a>
+            <div class="post-card__body">
+              <div class="post-card__meta"><span class="tag tag--red">独立开发</span><span>2026/10/17</span></div>
+              <h3 class="post-card__title"><a href="post-wargame.html">把纸面兵棋做成能跑、能测、能联机的程序</a></h3>
+              <p class="post-card__excerpt">一套纸面规则怎么落到状态机、AI 和自动化测试上，以及其中最烦的那些边界情况。</p>
+              <div class="post-card__foot">
+                <span><svg class="icon"><use href="#i-clock"></use></svg> 10 分钟</span>
+                <span class="post-card__more">读一读 <svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="card" data-reveal>
+          <a class="post-row" href="post-film.html">
+            <span class="post-row__thumb"><img src="assets/img/film/film-deploy.jpg" alt="宣传片部署流程画面" loading="lazy"></span>
+            <span class="post-row__body">
+              <span class="post-row__title">95 秒宣传片：每一帧都是程序画的</span>
+              <span class="post-row__meta"><span>影像</span><span>·</span><span>6 分钟</span></span>
+            </span>
+          </a>
+          <a class="post-row" href="post-kanban.html">
+            <span class="post-row__thumb"><img src="assets/img/dm-reg.png" alt="数据看板图表" loading="lazy"></span>
+            <span class="post-row__body">
+              <span class="post-row__title">用一张看板管住 12 周学习</span>
+              <span class="post-row__meta"><span>方法</span><span>·</span><span>5 分钟</span></span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <section class="stream-gap" data-reveal>
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-works"></use></svg></span>
+          <h2 class="sec-head__title">精选作品</h2>
+          <a class="sec-head__more" href="works.html">全部作品 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+        <div class="card" style="display:grid;gap:12px">
+          <a class="feature-work" href="work-bidding.html">
+            <span class="feature-work__thumb"><img src="assets/img/dm-hospital.png" alt="医院公告数量分布" loading="lazy"></span>
+            <span class="feature-work__body">
+              <span class="feature-work__title">医院招标投标数据采集与分析</span>
+              <span class="feature-work__desc">27 个官网、10709 条公告 → 可横向比较、可建模的数据集。</span>
+              <span class="feature-work__meta"><span class="tag">数据</span><span class="tag tag--ink">Python / SQL</span></span>
+            </span>
+          </a>
+          <a class="feature-work" href="work-wargame.html">
+            <span class="feature-work__thumb"><img src="assets/img/game-platform.jpg" alt="兵棋 AI 对战平台界面" loading="lazy"></span>
+            <span class="feature-work__body">
+              <span class="feature-work__title">《最后的狼踪》不对称战术兵棋</span>
+              <span class="feature-work__desc">把纸面兵棋做成能真跑、能测、能联机的可玩原型。</span>
+              <span class="feature-work__meta"><span class="tag tag--red">兵棋</span><span class="tag tag--ink">AI 对战 + 联机</span></span>
+            </span>
+          </a>
+          <a class="feature-work" href="work-film.html">
+            <span class="feature-work__thumb"><img src="assets/img/film/film-replay.jpg" alt="宣传片中的对局回放画面" loading="lazy"></span>
+            <span class="feature-work__body">
+              <span class="feature-work__title">《最后的狼踪》95 秒宣传片</span>
+              <span class="feature-work__desc">Pillow 逐帧合成、ffmpeg 编码，每一帧都是程序画的。</span>
+              <span class="feature-work__meta"><span class="tag">影像</span><span class="tag tag--ink">Pillow / ffmpeg</span></span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <section class="stream-gap" data-reveal>
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-gallery"></use></svg></span>
+          <h2 class="sec-head__title">图集速览</h2>
+          <a class="sec-head__more" href="gallery.html">进图集 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+        <div class="card">
+          <div class="home-gallery-strip">
+            <a href="gallery.html#wargame" aria-label="兵棋截图"><img src="assets/img/game-board.jpg" alt="六边形棋盘" loading="lazy"></a>
+            <a href="gallery.html#wargame" aria-label="兵棋回放"><img src="assets/img/game-replay.jpg" alt="对局回放界面" loading="lazy"></a>
+            <a href="gallery.html#data" aria-label="数据图表"><img src="assets/img/dm-roc.png" alt="ROC 曲线" loading="lazy"></a>
+            <a href="gallery.html#film" aria-label="影片截帧"><img src="assets/img/film/film-inspect.jpg" alt="宣传片回放细节" loading="lazy"></a>
+          </div>
+          <p class="muted" style="font-size:12px;margin-top:10px;text-align:center">兵棋截图 · 数据分析图表 · 影片截帧，一共 <strong data-stat="gallery">30</strong> 张</p>
+        </div>
+      </section>
+
+      <section class="card" data-reveal>
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-clock"></use></svg></span>
+          <h2 class="sec-head__title">小站日志</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-item__date">2026 / 10 / 19</div>
+            <div class="timeline-item__title">鹤与鱼的小站开张</div>
+            <div class="timeline-item__desc">首页、作品、图集、随笔四个页面搭好，背景是鲸和鹤。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item__date">2026 / 10 / 16</div>
+            <div class="timeline-item__title">作品集整理完毕</div>
+            <div class="timeline-item__desc">把招投标、兵棋、竞赛实习三个作品收进一个入口。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item__date">2026 / 10 / 10</div>
+            <div class="timeline-item__title">95 秒宣传片成片</div>
+            <div class="timeline-item__desc">程序逐帧合成，1920×1080 / 30fps，无音轨。</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 右栏 -->
+    <aside class="rail rail--right" aria-label="站点信息">
+      <section class="card" data-reveal>
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-chart"></use></svg></span>
+          <h2 class="sec-head__title">站点小统计</h2>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-tile stat-tile--blue">
+            <div class="stat-tile__top">
+              <span class="stat-tile__icon"><svg class="icon"><use href="#i-calendar"></use></svg></span>
+            </div>
+            <div class="stat-tile__num" data-days data-count>1</div>
+            <div class="stat-tile__label">运行天数</div>
+          </div>
+          <div class="stat-tile stat-tile--red">
+            <div class="stat-tile__top">
+              <span class="stat-tile__icon"><svg class="icon"><use href="#i-eye"></use></svg></span>
+            </div>
+            <div class="stat-tile__num" data-visits data-count>1</div>
+            <div class="stat-tile__label">总访问</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-tile__top">
+              <span class="stat-tile__icon"><svg class="icon"><use href="#i-works"></use></svg></span>
+            </div>
+            <div class="stat-tile__num" data-stat="works" data-count>4</div>
+            <div class="stat-tile__label">作品</div>
+          </div>
+          <div class="stat-tile stat-tile--ink">
+            <div class="stat-tile__top">
+              <span class="stat-tile__icon"><svg class="icon"><use href="#i-posts"></use></svg></span>
+            </div>
+            <div class="stat-tile__num" data-stat="posts" data-count>4</div>
+            <div class="stat-tile__label">随笔</div>
+          </div>
+        </div>
+        <div class="stat-foot">
+          <svg class="icon"><use href="#i-sparkle"></use></svg>
+          <span>最近更新：<strong>2026-10-19</strong></span>
+        </div>
+      </section>
+
+      <section class="card" data-reveal>
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-sparkle"></use></svg></span>
+          <h2 class="sec-head__title">现在正在做</h2>
+        </div>
+        <div class="progress-item">
+          <div class="progress-item__head"><span class="progress-item__name">数据分析求职</span><span class="progress-item__pct">70%</span></div>
+          <div class="progress-track"><div class="progress-fill" data-progress="70"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-item__head"><span class="progress-item__name">统计数据洞察平台</span><span class="progress-item__pct">35%</span></div>
+          <div class="progress-track"><div class="progress-fill progress-fill--red" data-progress="35"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-item__head"><span class="progress-item__name">新兵棋剧本与平衡</span><span class="progress-item__pct">55%</span></div>
+          <div class="progress-track"><div class="progress-fill" data-progress="55"></div></div>
+        </div>
+        <p class="muted" style="font-size:11.5px;margin-top:12px">进度条会随着真实进展更新，不写假数字。</p>
+      </section>
+
+      <section class="card" data-reveal>
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-code"></use></svg></span>
+          <h2 class="sec-head__title">手上的工具</h2>
+        </div>
+        <div class="skill-cloud">
+          <span>SQL</span><span>Python</span><span>Pandas</span><span>统计建模</span><span>SPSS</span>
+          <span>数据可视化</span><span>HTML / CSS / JS</span><span>兵棋设计</span><span>Pillow / ffmpeg</span><span>AI Agent 工作流</span>
+        </div>
+      </section>
+
+      <section class="card" id="guestbook" data-reveal>
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-message"></use></svg></span>
+          <h2 class="sec-head__title">留言板</h2>
+        </div>
+        <div class="guest-list" data-guestbook-list></div>
+        <form class="guest-form" data-guestbook-form>
+          <div class="guest-form__row">
+            <input class="guest-input" type="text" name="name" maxlength="12" placeholder="你的名字">
+          </div>
+          <textarea class="guest-textarea" name="text" maxlength="140" placeholder="说点什么吧～"></textarea>
+          <button class="btn btn--primary btn--sm btn--block" type="submit">
+            <svg class="icon"><use href="#i-send"></use></svg>留下这句话
+          </button>
+        </form>
+        <p class="muted" style="font-size:10.5px;margin-top:8px;text-align:center">演示版：留言只保存在你自己的浏览器里</p>
+      </section>
+    </aside>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<!--
+  文章页模板（templates/article.html）
+  用法：复制此文件为 post-xxx.html，替换标题、标签、正文、目录锚点、上下篇链接。
+  不要直接把这个文件当页面发布。
+-->
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{文章标题}} · 鹤与鱼</title>
+<meta name="description" content="{{一句话摘要}}">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+</head>
+<body data-page="post" data-sub="posts">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <a href="posts.html">随笔</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">{{文章标题}}</span>
+  </nav>
+
+  <div class="article-layout">
+    <article class="card article-card">
+      <header class="article-head">
+        <div class="article-head__tags">
+          <span class="tag">数据</span>
+          <span class="tag tag--ink">复盘</span>
+        </div>
+        <h1 class="article-title">{{文章标题}}</h1>
+        <p class="article-lead">{{导语，一到两句，告诉读者这篇解决什么问题}}</p>
+        <div class="article-meta">
+          <span><svg class="icon"><use href="#i-calendar"></use></svg>2026-10-19</span>
+          <span><svg class="icon"><use href="#i-clock"></use></svg>8 分钟</span>
+          <span><svg class="icon"><use href="#i-tag"></use></svg>数据采集 / 清洗</span>
+        </div>
+      </header>
+
+      <div class="prose">
+        <h2 id="s1">一、先把问题说清楚</h2>
+        <p>正文……</p>
+
+        <h2 id="s2">二、做法</h2>
+        <p>正文……</p>
+
+        <div class="callout callout--blue">
+          <span class="callout__icon"><svg class="icon"><use href="#i-info"></use></svg></span>
+          <div><div class="callout__title">一个关键口径</div><p>提示块文字。</p></div>
+        </div>
+
+        <h2 id="s3">三、结果</h2>
+        <figure>
+          <img src="assets/img/dm-year.png" alt="图表描述" loading="lazy">
+          <figcaption>图注：这张图说明了什么。</figcaption>
+        </figure>
+
+        <h2 id="s4">四、踩过的坑</h2>
+        <p>正文……</p>
+
+        <h2 id="s5">五、我学到了什么</h2>
+        <p>正文……</p>
+      </div>
+
+      <footer class="article-foot">
+        <div class="article-foot__tags">
+          <span class="tag tag--ink">标签一</span>
+          <span class="tag tag--ink">标签二</span>
+        </div>
+        <button class="like-btn" type="button" data-like="post-{{slug}}" data-like-base="0">
+          <svg class="icon"><use href="#i-heart"></use></svg>
+          <span>喜欢</span><span data-like-count>0</span>
+        </button>
+      </footer>
+    </article>
+
+    <aside class="article-aside">
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-list"></use></svg></span>
+          <h2 class="sec-head__title">本文目录</h2>
+        </div>
+        <nav class="toc-list" data-toc aria-label="文章目录">
+          <a href="#s1">一、先把问题说清楚</a>
+          <a href="#s2">二、做法</a>
+          <a href="#s3">三、结果</a>
+          <a href="#s4">四、踩过的坑</a>
+          <a href="#s5">五、我学到了什么</a>
+        </nav>
+      </section>
+
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-about"></use></svg></span>
+          <h2 class="sec-head__title">关于我</h2>
+        </div>
+        <p class="muted" style="font-size:12.5px">应用统计学 2027 届，在找数据分析相关的工作。这里放的都是在做的项目与写下来的复盘。</p>
+        <div class="btn-row" style="margin-top:12px">
+          <a class="btn btn--sm btn--soft" href="works.html">看作品</a>
+          <a class="btn btn--sm btn--ghost" href="about.html">关于</a>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="next-prev" aria-label="上一篇下一篇">
+    <a href="posts.html"><div class="next-prev__label">← 回到列表</div><div class="next-prev__title">全部随笔</div></a>
+    <a class="next-prev--next" href="{{下一篇}}.html"><div class="next-prev__label">下一篇 →</div><div class="next-prev__title">{{下一篇标题}}</div></a>
+  </nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

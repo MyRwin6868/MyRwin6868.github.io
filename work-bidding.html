@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>医院招标投标数据采集与分析 · 鹤与鱼</title>
+<meta name="description" content="27 个医院官网、10709 条公告：从配置驱动采集、清洗口径到五类建模，把散落的招标信息做成一张能横向比较、能建模的数据集。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/works.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+</head>
+<body data-page="work">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <a href="works.html">作品</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">医院招标投标数据采集与分析</span>
+  </nav>
+
+  <section class="card page-hero" data-reveal>
+    <div class="page-hero__tag"><span class="tag">数据作品 · DATA</span></div>
+    <h1 class="page-hero__title">医院招标投标<span>数据采集与分析</span></h1>
+    <p class="page-hero__lead">27 个医院官网、10709 条公告：从采集、清洗到五类建模，把散落的招标信息做成一张能横向比较、能建模的数据集。</p>
+    <div class="page-hero__meta">
+      <span><svg class="icon"><use href="#i-calendar"></use></svg>2026 年 10 月</span>
+      <span><svg class="icon"><use href="#i-tag"></use></svg>课程实践 · 个人项目</span>
+      <span><svg class="icon"><use href="#i-code"></use></svg>Python / scikit-learn</span>
+      <span><svg class="icon"><use href="#i-clock"></use></svg>数据跨度 2014—2026</span>
+    </div>
+    <div class="page-hero__art" aria-hidden="true"><svg class="icon"><use href="#i-database"></use></svg></div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="work-detail-hero">
+      <div class="work-detail-cover">
+        <img src="assets/img/dm-year.png" alt="2015—2026 年招标公告数量年度趋势折线图" loading="lazy">
+      </div>
+      <div class="works-overview">
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-info"></use></svg></span>
+          <h2 class="sec-head__title">项目概览</h2>
+          <span class="sec-head__count">采集 → 清洗 → 建模</span>
+        </div>
+        <p class="works-overview__lead">任务来自《大数据挖掘综合实践》实验周：指定 25 条医院记录（去重后 22 家官网），按《信息采集字典》口径采集「招标 / 采购 / 中标 / 公示」栏目；数据不足时用备用名单补采，最终覆盖 27 家医院官网。入库公告 10709 条，时间从 2014-04-25 到 2026-10-12；同时落盘 9579 份详情页正文和 2830 个网页附件，剔除 1332 条与招标无关的公告。</p>
+        <div class="detail-meta-grid">
+          <div class="detail-meta">
+            <div class="detail-meta__label">项目类型</div>
+            <div class="detail-meta__value">课程实践 · 个人项目</div>
+          </div>
+          <div class="detail-meta">
+            <div class="detail-meta__label">数据跨度</div>
+            <div class="detail-meta__value">2014-04-25 — 2026-10-12</div>
+          </div>
+          <div class="detail-meta">
+            <div class="detail-meta__label">覆盖范围</div>
+            <div class="detail-meta__value">27 家医院官网</div>
+          </div>
+          <div class="detail-meta">
+            <div class="detail-meta__label">代码结构</div>
+            <div class="detail-meta__value">11 个 Python 模块</div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--soft btn--sm" href="post-bidding.html"><svg class="icon"><use href="#i-posts"></use></svg>读同一项目的采集复盘</a>
+        </div>
+      </div>
+    </div>
+    <div class="metric-row works-metrics">
+      <div class="metric">
+        <div class="metric__num"><b data-count="10709">10709</b></div>
+        <div class="metric__label">入库公告（条）</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="27">27</b></div>
+        <div class="metric__label">覆盖医院官网（家）</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="9579">9579</b></div>
+        <div class="metric__label">详情页正文（份）</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="2830">2830</b></div>
+        <div class="metric__label">网页附件（个）</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="1332">1332</b></div>
+        <div class="metric__label">剔除无关公告（条）</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-download"></use></svg></span>
+      <h2 class="sec-head__title">数据是怎么收进来的</h2>
+      <span class="sec-head__count">配置驱动 · 两阶段</span>
+    </div>
+    <div class="prose works-prose">
+      <p>20 多个医院站点没有统一模板，逐个写死解析器不可维护。所以把站点差异集中到配置里，流程拆成两个阶段，再用一层缓存兜住重复请求。</p>
+      <h3>两阶段：先发现链接，再抓详情</h3>
+      <ul>
+        <li><strong>第一阶段</strong>翻列表页，按站点配置发现公告链接；<strong>第二阶段</strong>进详情页抽正文、下载附件、整理成字典要求的字段。</li>
+        <li>站点差异集中在 <code>sites.py</code> 的采集适配配置里，改一个站点只影响该站点。</li>
+        <li>加限速、User-Agent 轮换、超时与指数退避重试；403 / 429 触发长时间冷却。同域名请求间隔和单域名并发上限都可配。</li>
+        <li>所有页面落盘缓存，同一 URL 只请求一次；调试解析规则不产生额外请求，也能用已落盘的详情页重跑字段、不联网。</li>
+      </ul>
+      <h3>正文抽取换了一种打分方式</h3>
+      <p>最初用「取最长文本块」抽正文，结果在沧州、承德、唐山等站点上整页导航把正文淹没了。后来改成<strong>按非链接文字量打分</strong>：先切块，再挑链接密度低、有效文字多的块作为正文。清洗口径是剔除人事招聘、预决算公开、医院简介、政策文件、健康科普等与招标无关的公告，共 <strong>1332 条</strong>。</p>
+      <div class="callout callout--blue">
+        <span class="callout__icon"><svg class="icon"><use href="#i-shield"></use></svg></span>
+        <div>
+          <div class="callout__title">采集合规</div>
+          <p>只采集公开发布的招标投标公告与其附件，不涉及任何登录或非公开数据。限速、缓存、退避重试都是为了不给对方站点添麻烦。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-chart"></use></svg></span>
+      <h2 class="sec-head__title">数据里看到了什么</h2>
+      <span class="sec-head__count">8 张图</span>
+    </div>
+    <p class="works-note">下面 8 张图来自报告与建模产出，图注按原图内容写，点开可看大图。</p>
+    <div class="figure-grid works-figure-grid" data-lightbox-scope>
+      <figure class="gallery-item" data-caption="公告类型构成：招标 66.4%、中标 27.8%，其余为变更、废标与废标公示等">
+        <img src="assets/img/dm-status.png" alt="公告类型（招标状态）构成饼图：招标 66.4%、中标 27.8%" loading="lazy">
+        <figcaption>公告类型（招标状态）构成：招标 66.4%、中标 27.8%，其余为变更、废标与废标公示等。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="各医院采集到的公告数量：河北医科大学第一医院、河北省中医院位居前列">
+        <img src="assets/img/dm-hospital.png" alt="各医院采集到的公告数量横向条形图" loading="lazy">
+        <figcaption>各医院采集到的公告数量：河北医科大学第一医院、河北省中医院位居前列。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="招标公告数量年度趋势：2015—2026 年一路上升到每年约 2000 条">
+        <img src="assets/img/dm-year.png" alt="招标公告数量年度趋势折线图，2015 至 2026 年持续增长" loading="lazy">
+        <figcaption>招标公告数量年度趋势：2015—2026 年一路上升到每年约 2000 条。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="采购标的类型构成：信息化 / 智慧医院约 3000 条居首">
+        <img src="assets/img/dm-category.png" alt="采购标的类型构成横向条形图" loading="lazy">
+        <figcaption>采购标的类型构成：信息化 / 智慧医院约 3000 条居首，其次是医疗设备 / 器械与耗材 / 试剂。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="招标金额的对数分布（左）与各状态金额对数箱线图（右）">
+        <img src="assets/img/dm-amount.png" alt="左为招标金额对数分布直方图，右为各状态金额对数箱线图" loading="lazy">
+        <figcaption>招标金额的对数分布（左）与各状态金额对数箱线图（右）。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="金额预测模型对比：随机森林 R² 最高；中为预测与实际散点，右为残差分布">
+        <img src="assets/img/dm-reg.png" alt="金额预测六模型 R² 对比、随机森林预测与实际散点、残差分布三张子图" loading="lazy">
+        <figcaption>金额预测模型对比：随机森林 R² 最高（左）；预测与实际散点（中）、残差分布（右）。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="高价值采购识别 ROC：随机森林 AUC 0.913、逻辑回归 0.875、神经网络 MLP 0.870">
+        <img src="assets/img/dm-roc.png" alt="高价值采购识别（金额大于 10 万元）的 ROC 曲线" loading="lazy">
+        <figcaption>高价值采购识别（金额 &gt; 10 万元）ROC：随机森林 AUC 0.913、逻辑回归 0.875、神经网络 MLP 0.870。</figcaption>
+      </figure>
+      <figure class="gallery-item" data-caption="月度公告量 SARIMA(0,1,2)(0,1,1,12) 预测：后六个月外推与 80% 置信区间">
+        <img src="assets/img/dm-ts.png" alt="月度公告量 SARIMA 预测折线图，包含实际值、预测值与 80% 置信区间" loading="lazy">
+        <figcaption>月度公告量 SARIMA(0,1,2)(0,1,1,12) 预测：后六个月外推与 80% 置信区间。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-chart"></use></svg></span>
+      <h2 class="sec-head__title">数据口径与结论</h2>
+      <span class="sec-head__count">五类建模</span>
+    </div>
+    <div class="prose works-prose">
+      <h3>口径先定清楚</h3>
+      <p>入库 10709 条公告，来自 27 家医院官网，覆盖 2014-04-25 至 2026-10-12；详情页正文 9579 份、网页附件 2830 个；剔除人事招聘、预决算公开、医院简介、政策文件、健康科普等无关公告 1332 条。所有结论都建立在这套口径上。</p>
+      <h3>五类建模，各留一句结论</h3>
+      <ul>
+        <li><strong>金额回归</strong>：目标取对数，六模型五折交叉验证。随机森林 R²=0.425（对数尺度 RMSE=0.729），仅结构化特征的线性回归只有 0.189——说明「买的是什么」这段文本确实有增量信息。</li>
+        <li><strong>标的类型分类</strong>：只用正文、剔除标签列，做 7 分类，准确率约 0.71、宏平均 F1≈0.62；朴素贝叶斯明显落后，神经网络训练曲线平滑收敛。</li>
+        <li><strong>高价值采购识别</strong>：金额 &gt; 10 万元二分类，同分布 AUC≈0.91；时间外推（2024 前训练、2025 后预测）降到 0.66。</li>
+        <li><strong>流标风险识别</strong>：随机五折 AUC 0.99，按医院分组验证降到 0.95、PR-AUC 从 0.89 掉到 0.62，且模型排序发生反转——一个真实的分布偏移案例。</li>
+        <li><strong>聚类与时序</strong>：KMeans + 轮廓系数定簇数、LDA 取主题；月度公告量用 SARIMA 按 AIC 选阶并外推 6 个月（残差 Ljung-Box p=0.025，仍有残余自相关，报告里已如实说明）。</li>
+      </ul>
+      <h3>三个防坑点</h3>
+      <ul>
+        <li><strong>防标签泄漏</strong>：招标状态、标的类型本身就是规则从标题打上的标签，不能当特征——分类任务只用正文。</li>
+        <li><strong>防数字泄漏</strong>：金额是从正文数字抽的，建模文本统一抹除数字，否则回归会退化成「把数字再抄一遍」。</li>
+        <li><strong>防验证失真</strong>：存在强分组结构时随机交叉验证会高估泛化能力，所以并列汇报「随机 5 折」与「按医院分组 / 按时间外推」两种结果。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-about"></use></svg></span>
+      <h2 class="sec-head__title">我做了什么，没做到什么</h2>
+      <span class="sec-head__count">个人贡献 · 限制</span>
+    </div>
+    <div class="two-col">
+      <div class="prose works-prose">
+        <h3>个人贡献</h3>
+        <ul>
+          <li>把参考脚本重写成「配置驱动 + 两阶段 + 缓存」的采集结构，站点差异集中进配置层。</li>
+          <li>正文抽取从「取最长文本块」改成「按非链接文字量打分」，解决沧州、承德、唐山等站点的正文被导航淹没问题。</li>
+          <li>设计建模口径与验证方式，把三个防坑点写进流程；用脚本按模板生成实验报告。</li>
+          <li>用一键脚本串起采集、字段抽取、分析、报告与自检，换台机器也能复现。</li>
+        </ul>
+      </div>
+      <div class="prose works-prose">
+        <h3>限制与下一步</h3>
+        <ul>
+          <li>只采公开发布的公告与附件，不碰登录数据；部分站点结构变动时需要补配置。</li>
+          <li>金额从正文数字抽取，少数异常高值需人工复核（报告里单列了金额异常高值 TOP 20 复核清单）。</li>
+          <li>分布偏移很明显：高价值采购识别的时间外推 AUC 从 0.91 降到 0.66，流标风险按医院分组后 PR-AUC 从 0.89 降到 0.62。</li>
+          <li>SARIMA 残差仍有自相关（Ljung-Box p=0.025），外推只能当趋势参考，不当精确预测。</li>
+          <li>下一步：给抓取层补单元测试，把列表解析抽成独立模块。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-code"></use></svg></span>
+      <h2 class="sec-head__title">技术栈</h2>
+      <span class="sec-head__count">够用就好</span>
+    </div>
+    <div class="skill-cloud">
+      <span>Python</span><span>配置驱动采集</span><span>落盘缓存</span><span>限速与退避重试</span>
+      <span>正文抽取</span><span>pandas / numpy</span><span>scikit-learn</span><span>matplotlib</span>
+      <span>JSONL / CSV / Excel</span><span>Word 报告</span><span>一键复现脚本</span>
+    </div>
+    <p class="works-note">采集、清洗、建模、出报告都在同一套目录里；交付物是数据集、图表、实验报告与能复现的脚本，而不是一次性结果。</p>
+  </section>
+
+  <nav class="next-prev" aria-label="作品导航">
+    <a href="works.html">
+      <div class="next-prev__label">← 回到列表</div>
+      <div class="next-prev__title">全部作品</div>
+    </a>
+    <a class="next-prev--next" href="work-wargame.html">
+      <div class="next-prev__label">下一个作品 →</div>
+      <div class="next-prev__title">《最后的狼踪》不对称战术兵棋</div>
+    </a>
+  </nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

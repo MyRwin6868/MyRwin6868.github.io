@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>随笔 · 鹤与鱼</title>
+<meta name="description" content="鹤与鱼 · 随笔区：招标数据采集复盘、兵棋程序化、95 秒程序宣传片、12 周看板，四篇长文记录做法、数字和踩过的坑。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/posts.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+</head>
+<body data-page="posts">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+
+  <section class="card page-hero" data-reveal>
+    <div class="page-hero__tag"><span class="eyebrow">随笔 · NOTES</span></div>
+    <h1 class="page-hero__title">把踩过的坑<span>写清楚</span></h1>
+    <p class="page-hero__lead">这里放长文，不放碎念。每次项目收尾，把做法、数字和翻车的地方整理成一篇能给别人看的复盘——做得成的写，做不成的也写。</p>
+    <div class="page-hero__meta">
+      <span><svg class="icon"><use href="#i-posts"></use></svg>4 篇长文</span>
+      <span><svg class="icon"><use href="#i-clock"></use></svg>合计约 29 分钟</span>
+      <span><svg class="icon"><use href="#i-tag"></use></svg>数据 / 兵棋 / 影像 / 方法</span>
+    </div>
+    <div class="page-hero__art"><svg class="icon"><use href="#i-posts"></use></svg></div>
+  </section>
+
+  <div class="posts-filter" data-filter-group="#posts-grid" data-reveal>
+    <span class="posts-filter__label"><svg class="icon"><use href="#i-list"></use></svg>按主题筛选</span>
+    <div class="chip-row">
+      <button class="chip is-active" type="button" data-filter="all"><svg class="icon"><use href="#i-posts"></use></svg>全部</button>
+      <button class="chip" type="button" data-filter="数据"><svg class="icon"><use href="#i-database"></use></svg>数据</button>
+      <button class="chip" type="button" data-filter="兵棋"><svg class="icon"><use href="#i-dice"></use></svg>兵棋</button>
+      <button class="chip" type="button" data-filter="影像"><svg class="icon"><use href="#i-film"></use></svg>影像</button>
+      <button class="chip" type="button" data-filter="方法"><svg class="icon"><use href="#i-chart"></use></svg>方法</button>
+    </div>
+    <span class="posts-filter__spacer"></span>
+    <span class="posts-filter__count">共 <strong>4</strong> 篇</span>
+  </div>
+
+  <div class="posts-grid" id="posts-grid">
+
+    <article class="card post-card" data-tags="数据">
+      <a class="post-card__cover" href="post-bidding.html" aria-label="阅读：27 个官网，10709 条公告：一次招标数据采集复盘">
+        <img src="assets/img/dm-year.png" alt="折线图：医院招标公告按年份的数量变化" loading="lazy">
+        <span class="post-card__badge">数据 · 随笔</span>
+      </a>
+      <div class="post-card__body">
+        <div class="post-card__meta"><span class="tag">采集复盘</span><span>2026/10/18</span></div>
+        <h3 class="post-card__title"><a href="post-bidding.html">27 个官网，10709 条公告：一次招标数据采集复盘</a></h3>
+        <p class="post-card__excerpt">散在 27 个官网、格式各不相同的招标采购信息，怎么收成一张能横向比较、能建模的表。两阶段采集、缓存与限速、字段抽取和清洗口径都在这篇里。</p>
+        <div class="post-card__foot">
+          <span><svg class="icon"><use href="#i-clock"></use></svg> 8 分钟</span>
+          <span class="post-card__more">读一读 <svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card post-card" data-tags="兵棋">
+      <a class="post-card__cover" href="post-wargame.html" aria-label="阅读：把纸面兵棋做成能跑、能测、能联机的程序">
+        <img src="assets/img/game-board.jpg" alt="兵棋截图：《最后的狼踪》六边形地图与开局部署界面" loading="lazy">
+        <span class="post-card__badge post-card__badge--red">兵棋 · 随笔</span>
+      </a>
+      <div class="post-card__body">
+        <div class="post-card__meta"><span class="tag tag--red">独立开发</span><span>2026/10/17</span></div>
+        <h3 class="post-card__title"><a href="post-wargame.html">把纸面兵棋做成能跑、能测、能联机的程序</a></h3>
+        <p class="post-card__excerpt">一套纸面规则怎么落到状态机、AI 和自动化测试上，以及其中最烦的那些边界情况：骰子、天气、回放，还有一次「任务下发故障」的排障记录。</p>
+        <div class="post-card__foot">
+          <span><svg class="icon"><use href="#i-clock"></use></svg> 10 分钟</span>
+          <span class="post-card__more">读一读 <svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card post-card" data-tags="影像">
+      <a class="post-card__cover" href="post-film.html" aria-label="阅读：95 秒宣传片：每一帧都是程序画的">
+        <img src="assets/img/film/film-title.jpg" alt="宣传片主标题画面：黑暗中发光的「最后的狼踪」五个字" loading="lazy">
+        <span class="post-card__badge">影像 · 随笔</span>
+      </a>
+      <div class="post-card__body">
+        <div class="post-card__meta"><span class="tag">影像</span><span>6 分钟</span></div>
+        <h3 class="post-card__title"><a href="post-film.html">95 秒宣传片：每一帧都是程序画的</a></h3>
+        <p class="post-card__excerpt">95 秒、1920×1080、30fps、无音轨：每一帧都由 Pillow 画出来，再用 ffmpeg 编码。分镜、调色和码率上的取舍都写在这篇。</p>
+        <div class="post-card__foot">
+          <span><svg class="icon"><use href="#i-clock"></use></svg> 6 分钟</span>
+          <span class="post-card__more">读一读 <svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card post-card" data-tags="方法">
+      <a class="post-card__cover" href="post-kanban.html" aria-label="阅读：用一张看板管住 12 周学习">
+        <img src="assets/img/dm-ts.png" alt="折线图：按月的公告量曲线与未来六个月的预测区间" loading="lazy">
+        <span class="post-card__badge">方法 · 随笔</span>
+      </a>
+      <div class="post-card__body">
+        <div class="post-card__meta"><span class="tag">方法</span><span>5 分钟</span></div>
+        <h3 class="post-card__title"><a href="post-kanban.html">用一张看板管住 12 周学习</a></h3>
+        <p class="post-card__excerpt">把 12 周的执行计划变成一份 JSON、一个构建脚本和三个视图。改数据不碰页面，打开就知道今天该做什么。</p>
+        <div class="post-card__foot">
+          <span><svg class="icon"><use href="#i-clock"></use></svg> 5 分钟</span>
+          <span class="post-card__more">读一读 <svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <section class="card posts-end" data-reveal>
+    <div class="posts-end__body">
+      <div class="sec-head">
+        <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-quote"></use></svg></span>
+        <h2 class="sec-head__title">写在最后</h2>
+      </div>
+      <h3 class="posts-end__title">没有订阅表单，只有一篇一篇写完</h3>
+      <p class="posts-end__text">我不太想让这个页面变成要留邮箱才能看的地方。写随笔的原因很实际：一个项目做完，如果不写下来，三个月后只记得「当时挺难」。写成文章之后，做法、数字和判断才有机会被下一个人复现，也才有机会被指出错。如果你也在做类似的事，欢迎从作品页或关于页找我聊。</p>
+    </div>
+    <div class="posts-end__panel">
+      <a class="btn btn--primary btn--sm btn--block" href="works.html"><svg class="icon"><use href="#i-works"></use></svg>看作品</a>
+      <a class="btn btn--soft btn--sm btn--block" href="gallery.html"><svg class="icon"><use href="#i-gallery"></use></svg>去图集</a>
+      <a class="btn btn--ghost btn--sm btn--block" href="about.html"><svg class="icon"><use href="#i-about"></use></svg>关于我</a>
+      <p class="posts-end__note">这个小站没有 RSS，也没有邮件列表。想追更就先收藏这一页，或者看首页的「最近在写」。</p>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

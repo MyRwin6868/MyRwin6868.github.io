@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>作品 · 鹤与鱼</title>
+<meta name="description" content="鹤与鱼的作品：医院招标投标数据采集与分析、《最后的狼踪》不对称战术兵棋、95 秒程序化宣传片，以及竞赛、实习与论文。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/works.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+</head>
+<body data-page="works">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <section class="card page-hero" data-reveal>
+    <div class="page-hero__tag"><span class="tag">作品 · WORKS</span></div>
+    <h1 class="page-hero__title">我的作品<span>，都在这里</span></h1>
+    <p class="page-hero__lead">数据、兵棋、影像，再加一块竞赛与论文。每张卡都能点进详情：数字来自项目产出，限制也照实写。</p>
+    <div class="page-hero__meta">
+      <span><svg class="icon"><use href="#i-works"></use></svg>4 件作品</span>
+      <span><svg class="icon"><use href="#i-database"></use></svg>数据 / 兵棋 / 影像 / 科研</span>
+      <span><svg class="icon"><use href="#i-calendar"></use></svg>2024—2026</span>
+    </div>
+    <div class="page-hero__art" aria-hidden="true"><svg class="icon"><use href="#i-whale"></use></svg></div>
+  </section>
+
+  <section class="filter-bar" data-filter-group="#works-list" aria-label="按方向筛选作品">
+    <span class="filter-bar__label"><svg class="icon"><use href="#i-list"></use></svg>方向</span>
+    <div class="chip-row">
+      <button class="chip is-active" type="button" data-filter="all">全部</button>
+      <button class="chip" type="button" data-filter="数据">数据</button>
+      <button class="chip" type="button" data-filter="兵棋">兵棋</button>
+      <button class="chip" type="button" data-filter="影像">影像</button>
+      <button class="chip" type="button" data-filter="科研">科研</button>
+    </div>
+    <span class="filter-bar__spacer"></span>
+    <span class="filter-count" data-filter-count>共 <strong>4</strong> 项</span>
+  </section>
+
+  <div class="works-grid" id="works-list">
+
+    <article class="card work-card" data-tags="数据" data-reveal>
+      <a class="work-card__media" href="work-bidding.html" aria-label="查看作品详情：医院招标投标数据采集与分析">
+        <img src="assets/img/dm-year.png" alt="折线图：2015—2026 年招标公告数量逐年上升" loading="lazy">
+        <span class="work-card__kind"><svg class="icon"><use href="#i-database"></use></svg>数据</span>
+      </a>
+      <div class="work-card__body">
+        <h3 class="work-card__title"><a href="work-bidding.html">医院招标投标数据采集与分析</a></h3>
+        <p class="work-card__desc">把散在 27 个医院官网、格式各不相同的招标采购公告，收成一张能横向比较、能建模的数据集，再用五类模型看金额、标的类型与流标风险。</p>
+        <div class="work-card__metrics">
+          <span>10709 条公告</span>
+          <span>27 家医院官网</span>
+          <span>9579 份正文</span>
+          <span>2830 个附件</span>
+        </div>
+        <div class="work-card__foot">
+          <a class="work-card__more" href="work-bidding.html">看详情 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card work-card" data-tags="兵棋" data-reveal data-reveal-delay="60">
+      <a class="work-card__media" href="work-wargame.html" aria-label="查看作品详情：《最后的狼踪》不对称战术兵棋">
+        <img src="assets/img/game-platform.jpg" alt="《最后的狼踪》对局平台主界面，列出人人对战、人机对战与 AI 对战入口" loading="lazy">
+        <span class="work-card__kind work-card__kind--red"><svg class="icon"><use href="#i-dice"></use></svg>兵棋</span>
+      </a>
+      <div class="work-card__body">
+        <h3 class="work-card__title"><a href="work-wargame.html">《最后的狼踪》不对称战术兵棋</a></h3>
+        <p class="work-card__desc">狼群潜入牧场、猎杀牲畜、带战果撤离；牧民守畜、封堵洞口。把一套纸面规则做成能真跑、能测、能联机的可玩原型。</p>
+        <div class="work-card__metrics">
+          <span>167 个 JS / MJS 文件</span>
+          <span>60 次 Git 提交</span>
+          <span>30 个测试文件</span>
+          <span>~899 项检查</span>
+        </div>
+        <div class="work-card__foot">
+          <a class="work-card__more" href="work-wargame.html">看详情 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card work-card" data-tags="影像" data-reveal>
+      <a class="work-card__media" href="work-film.html" aria-label="查看作品详情：《最后的狼踪》95 秒宣传片">
+        <img src="assets/img/film/film-title.jpg" alt="宣传片主标题画面：黑暗中亮起「最后的狼踪」与英文副标题" loading="lazy">
+        <span class="work-card__kind"><svg class="icon"><use href="#i-film"></use></svg>影像</span>
+      </a>
+      <div class="work-card__body">
+        <h3 class="work-card__title"><a href="work-film.html">《最后的狼踪》95 秒宣传片</a></h3>
+        <p class="work-card__desc">每一帧都由程序合成，不是截图配字幕。95 秒里讲完「一张地图、两个阵营、没有第二次机会」。</p>
+        <div class="work-card__metrics">
+          <span>95 秒</span>
+          <span>1920×1080</span>
+          <span>30 fps</span>
+          <span>无音轨</span>
+        </div>
+        <div class="work-card__foot">
+          <a class="work-card__more" href="work-film.html">看详情 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card work-card" data-tags="科研" data-reveal data-reveal-delay="60">
+      <div class="work-card__media works-media-plain">
+        <span class="work-card__kind"><svg class="icon"><use href="#i-chart"></use></svg>科研</span>
+        <span class="works-media-plain__icons" aria-hidden="true">
+          <svg class="icon"><use href="#i-star"></use></svg>
+          <svg class="icon"><use href="#i-shield"></use></svg>
+          <svg class="icon"><use href="#i-chart"></use></svg>
+        </span>
+        <span class="works-media-plain__label">竞赛 · 实习 · 论文</span>
+      </div>
+      <div class="work-card__body">
+        <h3 class="work-card__title"><a href="work-research.html">竞赛、实习与论文</a></h3>
+        <p class="work-card__desc">四类统计与建模竞赛、一段政府统计实习，和一篇发在 SSCI 期刊上的 ERP 语言学论文。负责的主要是问卷量表设计、结构方程分析与建模求解。</p>
+        <div class="work-card__metrics">
+          <span>4 类竞赛</span>
+          <span>5 项奖项</span>
+          <span>1 段政府统计实习</span>
+          <span>1 篇 SSCI · 第 4 作者</span>
+        </div>
+        <div class="work-card__foot">
+          <a class="work-card__more" href="work-research.html">看详情 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <section class="card works-cta" data-reveal>
+    <div>
+      <h2 class="works-cta__title">作品讲的是结果，过程写在随笔里。</h2>
+      <p class="works-cta__desc">图集里有兵棋截图、数据图表与影片截帧；随笔里记着这些项目怎么做出来、在哪里踩过坑。想继续逛，往这两个方向走。</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn--primary" href="gallery.html"><svg class="icon"><use href="#i-gallery"></use></svg>进图集</a>
+      <a class="btn btn--ghost" href="posts.html"><svg class="icon"><use href="#i-posts"></use></svg>读随笔</a>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

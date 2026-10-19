@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>95 秒宣传片：每一帧都是程序画的 · 鹤与鱼</title>
+<meta name="description" content="《最后的狼踪》95 秒宣传片制作复盘：15 段分镜、Pillow 逐帧合成 2850 帧、截图调色自适应、ffmpeg 编码，以及踩过的四个坑。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+<style>
+  .post-table-wrap { margin: 22px 0; overflow-x: auto; }
+  .post-table-wrap table { margin-top: 0; margin-bottom: 0; }
+  .post-table-wrap table th { white-space: normal; }
+  .post-time-table td:first-child { white-space: nowrap; font-family: var(--font-mono); font-size: 12.5px; color: var(--brand-deep); }
+  html[data-decor="night"] .post-pre { background: var(--surface-soft); border-color: var(--line-strong); color: var(--text-2); }
+  @media (max-width: 560px) {
+    .post-table-wrap table { font-size: 12.5px; }
+    .post-table-wrap table th, .post-table-wrap table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body data-page="post" data-sub="posts">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <a href="posts.html">随笔</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">95 秒宣传片</span>
+  </nav>
+
+  <div class="article-layout">
+    <article class="card article-card">
+      <header class="article-head">
+        <div class="article-head__tags">
+          <span class="tag">影像</span>
+          <span class="tag tag--ink">复盘</span>
+        </div>
+        <h1 class="article-title">95 秒宣传片：每一帧都是程序画的</h1>
+        <p class="article-lead">《最后的狼踪》的 95 秒宣传片，不是把截图拖进剪辑软件再配字幕：画面由 Python 用 Pillow 逐帧合成，2850 帧渲染完再交给 ffmpeg 编码。这篇写它怎么搭起来，也写踩过的坑。</p>
+        <div class="article-meta">
+          <span><svg class="icon"><use href="#i-calendar"></use></svg>2026-10-16</span>
+          <span><svg class="icon"><use href="#i-clock"></use></svg>6 分钟</span>
+          <span><svg class="icon"><use href="#i-tag"></use></svg>程序化影像 / Pillow · ffmpeg</span>
+        </div>
+      </header>
+
+      <div class="prose">
+        <figure>
+          <div class="video-frame">
+            <video controls preload="metadata" poster="assets/img/film/film-title.jpg">
+              <source src="assets/video/promo-web.mp4" type="video/mp4">
+              你的浏览器不支持内嵌视频，可以直接看后面的截帧。
+            </video>
+          </div>
+          <figcaption>成片网页版：1280×720 / 19.7 MB / 无音轨；完整版为 1920×1080。</figcaption>
+        </figure>
+
+        <h2 id="s1">一、为什么不录屏，改成画</h2>
+        <p>片子要在 95 秒里讲清一个兵棋：棋盘、规则、人机流程、自动化脚本。录屏当然更快，但窗口边框、鼠标轨迹、动画节奏、分辨率都不可控，后期还得遮掉桌面和任务栏；而程序画的每一帧，版式、颜色、字号都由我定。</p>
+        <p>更实际的限制是：沙箱里起不了 Chromium（原因写在踩坑里），想加新素材只能靠已有截图或人工录屏。既然素材受限，不如把画面也一起接管过来。</p>
+        <p>于是先定一条视觉底子：底色渐变加六边形点阵（呼应 16×28 的战场），中心亮、边缘暗，再叠胶片颗粒、扫描线和暗角。截图、文字、光效都往这条底子上放，95 秒看起来才像一部片子，而不是十五张幻灯片。</p>
+
+        <h2 id="s2">二、时间轴与分镜：95 秒拆成 15 段</h2>
+        <p>分镜表是整部片的骨架。95 秒被切成 15 段，每段有确定的起止秒数；渲染时按帧号判断当前落在哪一段（第 n 帧对应 n ÷ 30 秒），再画那一段的内容。下面是压缩过的分镜表：</p>
+        <div class="post-table-wrap">
+          <table class="post-time-table">
+            <thead>
+              <tr><th>时间（秒）</th><th>段落与画面</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>0.0–1.4</td><td>黑场：一道琥珀光横扫</td></tr>
+              <tr><td>1.4–5.2</td><td>狼眼：黑暗中浮起一对发光的眼，缓慢呼吸</td></tr>
+              <tr><td>5.2–8.8</td><td>主标题：「最后的狼踪」砸入，冲击闪白，光条展开</td></tr>
+              <tr><td>8.8–12.6</td><td>规格：不对称战术兵棋 / 16×28 / 12 回合</td></tr>
+              <tr><td>12.6–19.2</td><td>对峙：左「狼群」右「牧民」逐条对位</td></tr>
+              <tr><td>19.2–25.2</td><td>战场：六边形棋盘截图 + HUD 角标</td></tr>
+              <tr><td>25.2–31.4</td><td>攻击预演：战果列截图</td></tr>
+              <tr><td>31.4–36.6</td><td>平台：AI 对战平台界面</td></tr>
+              <tr><td>36.6–44.8</td><td>对局实录：8 秒实机片段，配三条战况标注</td></tr>
+              <tr><td>44.8–53.0</td><td>人机对战流程：选模式 → 挑边 → 四步部署</td></tr>
+              <tr><td>53.0–62.0</td><td>操作便利：行动浮卡特写 + 五条键位</td></tr>
+              <tr><td>62.0–71.0</td><td>回放：点算子看属性</td></tr>
+              <tr><td>71.0–80.0</td><td>剧本自定义：剧本编译器 + 三条说明</td></tr>
+              <tr><td>80.0–89.0</td><td>自动化脚本：终端面板 + 四个参数</td></tr>
+              <tr><td>89.0–95.0</td><td>收尾：标题回落 + ONE MAP. TWO SIDES. NO SECOND CHANCE.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>真正写起来，难点不在段落里画什么，而在段与段怎么接。标题是砸入，狼眼是慢呼吸，终端参数是逐条揭示；这些动作都要跨帧算进度，不能只画静止一帧。15 段里，前面交代它是什么，后面演示怎么玩。</p>
+        <figure>
+          <img src="assets/img/film/film-replay.jpg" alt="宣传片对局实录段落的截帧：左右两栏夹着回放棋盘，右侧有三条战况标注" loading="lazy">
+          <figcaption>对局实录段落截帧：8 秒实机画面压在左右两栏之间，左侧是 REPLAY 与种子号，右侧是三条战况标注。</figcaption>
+        </figure>
+        <p>全片唯一一段实拍素材是 36.6–44.8 秒的对局实录：从对局录像里抽 8 秒，裁掉浏览器和任务栏，只留棋盘，再按暗色调一遍。这一段的任务是证明「它真的能下」，其余画面交给程序画。</p>
+
+        <h2 id="s3">三、Pillow 逐帧合成：一帧就是一张画布</h2>
+        <p>渲染脚本是 film.py。它的循环很朴素：对每一帧，先按帧号算出时间，查时间表得到当前段落和段落内进度，然后在 1920×1080 的画布上从底色、点阵、截图、文字、光效一层层往上叠，最后存成 JPG。每一次修改都不是重录一段，而是改一行绘制参数再重渲染。</p>
+        <p>字体有明确分工：simhei 给标题，msyhbd 给小标题，msyh 给正文（包括中文终端），consola 只给纯英文小字。这个分工后来救了一次命——Consolas 一遇到中文就是方块。</p>
+        <p>渲染前先跑 <code>--preview</code> 抽几张帧看构图：字幕有没有压到边、截图和底子脱不脱节；确认没问题再 <code>--all</code> 全量出 2850 帧。先预览省掉的返工，比多看几遍代码管用。</p>
+        <figure>
+          <img src="assets/img/film/film-title.jpg" alt="宣传片主标题画面：黑底上写着「最后的狼踪」，下方是 A DARK TACTICAL WARGAME" loading="lazy">
+          <figcaption>主标题段落：六边形点阵压在黑底上，标题砸入后接冲击闪白与光条展开。</figcaption>
+        </figure>
+
+        <h2 id="s4">四、截图调色：按明暗自适应</h2>
+        <p>片里不少画面来自兵棋已有的界面截图，亮度不统一：有的偏亮，有的深色面板几乎全黑。统一加亮或压暗都不行，只能按明暗自适应——亮图压暗、降饱和，暗图提亮。否则暗色界面会被压死，糊成一块。</p>
+        <p>实机片段单独处理：先用 ffmpeg 从对局录像里抽 8 秒，crop 掉浏览器和任务栏，只留 830×775 的棋盘区域，再调亮度和色相，让它跟程序画的底色贴近。</p>
+        <pre class="post-pre"><code>ffmpeg -ss 26 -t 8 -i 对局片段.mp4 -vf "crop=830:775:400:150,eq=brightness=-0.10:saturation=0.72:contrast=1.10,colorbalance=bs=0.07:bm=0.05" -r 30 game/f%04d.png</code></pre>
+        <figure>
+          <img src="assets/img/film/film-board.jpg" alt="宣传片战场段落的截帧：六边形棋盘界面配右侧信息面板，画面下方写着「六边形战场」" loading="lazy">
+          <figcaption>战场段落：界面截图先压暗降饱和，再被 HUD 角标和暗角收进画面。</figcaption>
+        </figure>
+
+        <h2 id="s5">五、ffmpeg 编码：2850 帧变成两个文件</h2>
+        <p>编码分两步。主片先出：按 30 fps 读入 frames 里的连续 JPG，先做 hqdn3d 降噪，再交给 libx264（preset slow、crf 23.8、yuv420p、+faststart），得到 1920×1080 的版本。</p>
+        <pre class="post-pre"><code>ffmpeg -framerate 30 -i frames/f%05d.jpg -vf "hqdn3d=2:2:4:4" -c:v libx264 -preset slow -crf 23.8 -pix_fmt yuv420p -movflags +faststart 最后的狼踪_宣传片.mp4</code></pre>
+        <p>网页版从主片再压一次：lanczos 缩到 1280×720、crf 21，体积 19.7 MB，嵌进网页不心疼流量。主片 93.2 MB，刚好在 GitHub Pages 单文件 100 MB 以内；网页版对 Cloudflare Pages 的 25 MB 限制也够。</p>
+        <figure>
+          <img src="assets/img/film/film-terminal.jpg" alt="宣传片自动化脚本段落的截帧：终端面板里显示一次对局运行的输出，右侧列出四个参数" loading="lazy">
+          <figcaption>自动化脚本段落：终端里是一次带固定种子的实跑记录，右侧是四个参数说明。</figcaption>
+        </figure>
+
+        <h2 id="s6">六、踩过的坑</h2>
+        <ul>
+          <li><strong>颗粒是码率杀手。</strong>crf 18 那一版有 649 MB；改成 crf 23.8 加 hqdn3d，降到 93 MB，肉眼几乎看不出差别。</li>
+          <li><strong>慢速推拉别用 zoompan。</strong>它按整数像素裁切，每帧挪不到 1 px 就变成逐帧抖动，上一版就栽在这里；后来改用淡入淡出和逐条揭示。</li>
+          <li><strong>中文不能进 Consolas。</strong>终端面板里的中文会全变成方块，必须换 CJK 字体。</li>
+          <li><strong>沙箱里起不了浏览器。</strong>Chromium 内部 IPC 需要命名管道，报 Mojo platform_channel Check failed 拒绝访问，加 --single-process 也一样。所以要加新素材，只能靠已有截图或人工录屏。</li>
+        </ul>
+
+        <h2 id="s7">七、成片规格与怎么重建</h2>
+        <p>最后交付两份文件：</p>
+        <div class="post-table-wrap">
+          <table>
+            <thead>
+              <tr><th>项目</th><th>规格</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>时长</td><td>95 秒</td></tr>
+              <tr><td>画面</td><td>1920×1080 / 30 fps / 2850 帧</td></tr>
+              <tr><td>音轨</td><td>无</td></tr>
+              <tr><td>主片</td><td>1920×1080 · 93.2 MB</td></tr>
+              <tr><td>网页版</td><td>1280×720 · 19.7 MB</td></tr>
+              <tr><td>编码</td><td>H.264（libx264）· yuv420p · +faststart</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>重建就三步：先 <code>--preview</code> 抽帧确认，再 <code>--all</code> 渲染 2850 帧，最后按上面的两条 ffmpeg 命令编码；实机素材要从对局录像里重新抽一次。路径和字体都在这台机器上，换一台机器得重新对齐。</p>
+        <p>95 秒不长，但它把兵棋从「一堆界面」变成了「一段能给人看的东西」。程序画最大的好处不是炫技，是可复现：改一个参数，重跑，整片一起变。</p>
+      </div>
+
+      <footer class="article-foot">
+        <div class="article-foot__tags">
+          <span class="tag tag--ink">Pillow</span>
+          <span class="tag tag--ink">ffmpeg</span>
+          <span class="tag tag--ink">程序化影像</span>
+        </div>
+        <button class="like-btn" type="button" data-like="post-film" data-like-base="0">
+          <svg class="icon"><use href="#i-heart"></use></svg>
+          <span>喜欢</span><span data-like-count>0</span>
+        </button>
+      </footer>
+    </article>
+
+    <aside class="article-aside">
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-list"></use></svg></span>
+          <h2 class="sec-head__title">本文目录</h2>
+        </div>
+        <nav class="toc-list" data-toc aria-label="文章目录">
+          <a href="#s1">一、为什么不录屏，改成画</a>
+          <a href="#s2">二、时间轴与分镜：95 秒拆成 15 段</a>
+          <a href="#s3">三、Pillow 逐帧合成</a>
+          <a href="#s4">四、截图调色：按明暗自适应</a>
+          <a href="#s5">五、ffmpeg 编码</a>
+          <a href="#s6">六、踩过的坑</a>
+          <a href="#s7">七、成片规格与怎么重建</a>
+        </nav>
+      </section>
+
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-about"></use></svg></span>
+          <h2 class="sec-head__title">关于我</h2>
+        </div>
+        <p class="muted" style="font-size:12.5px">应用统计学 2027 届，在找数据分析相关的工作。这里放的都是在做的项目与写下来的复盘。</p>
+        <div class="btn-row" style="margin-top:12px">
+          <a class="btn btn--sm btn--soft" href="works.html">看作品</a>
+          <a class="btn btn--sm btn--ghost" href="about.html">关于</a>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="next-prev" aria-label="上一篇下一篇">
+    <a href="posts.html"><div class="next-prev__label">← 回到列表</div><div class="next-prev__title">全部随笔</div></a>
+    <a class="next-prev--next" href="post-kanban.html"><div class="next-prev__label">下一篇 →</div><div class="next-prev__title">用一张看板管住 12 周学习</div></a>
+  </nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

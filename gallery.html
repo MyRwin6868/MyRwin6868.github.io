@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>图集 · 鹤与鱼</title>
+<meta name="description" content="鹤与鱼的小站图集：12 张《最后的狼踪》兵棋截图、12 张医院招投标数据图表、6 帧宣传片截帧，共 30 张，支持分类筛选与点击放大。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/gallery.css">
+<!-- 防止主题闪烁：在 CSS 之前先读本地主题 -->
+<script>
+  try {
+    var d = localStorage.getItem("mrywin.decor");
+    if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn";
+    document.documentElement.setAttribute("data-decor", d);
+  } catch (e) {}
+</script>
+</head>
+<body data-page="gallery">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main gallery-page">
+
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">图集</span>
+  </nav>
+
+  <section class="card page-hero gallery-hero">
+    <div class="page-hero__tag"><span class="eyebrow">图集 · GALLERY</span></div>
+    <h1 class="page-hero__title">三十张图，<span>三段做东西的现场</span></h1>
+    <p class="page-hero__lead">一套兵棋、一个招标数据分析项目、一部程序生成的宣传片。图都是从自己项目里直接导出的，没有图库素材；点任意一张放大，用上面的筛子可以只看一类。</p>
+    <div class="page-hero__meta">
+      <span><svg class="icon"><use href="#i-gallery"></use></svg>共 30 张</span>
+      <a class="gallery-jump-link" href="#wargame"><svg class="icon"><use href="#i-dice"></use></svg>兵棋 12</a>
+      <a class="gallery-jump-link" href="#data"><svg class="icon"><use href="#i-chart"></use></svg>数据 12</a>
+      <a class="gallery-jump-link" href="#film"><svg class="icon"><use href="#i-film"></use></svg>影像 6</a>
+      <span><svg class="icon"><use href="#i-calendar"></use></svg>整理于 2026-10-19</span>
+    </div>
+    <div class="page-hero__art"><svg class="icon"><use href="#i-gallery"></use></svg></div>
+  </section>
+
+  <div class="filter-bar gallery-toolbar" data-filter-group="#gallery-scope">
+    <span class="filter-bar__label"><svg class="icon"><use href="#i-tag"></use></svg>筛选</span>
+    <div class="chip-row gallery-chips">
+      <button class="chip is-active" type="button" data-filter="all"><svg class="icon"><use href="#i-sparkle"></use></svg>全部<em class="gallery-chip-count">30</em></button>
+      <button class="chip" type="button" data-filter="兵棋"><svg class="icon"><use href="#i-dice"></use></svg>兵棋<em class="gallery-chip-count">12</em></button>
+      <button class="chip" type="button" data-filter="数据"><svg class="icon"><use href="#i-chart"></use></svg>数据<em class="gallery-chip-count">12</em></button>
+      <button class="chip" type="button" data-filter="影像"><svg class="icon"><use href="#i-film"></use></svg>影像<em class="gallery-chip-count">6</em></button>
+    </div>
+    <span class="filter-bar__spacer"></span>
+    <span class="filter-count" data-filter-count>共 <strong>30</strong> 项</span>
+  </div>
+
+  <div class="gallery-scope" id="gallery-scope" data-lightbox-scope>
+
+    <!-- ================= 兵棋截图 ================= -->
+    <section class="gallery-section" id="wargame" aria-labelledby="gallery-wargame-title">
+      <div class="sec-head">
+        <span class="sec-head__icon"><svg class="icon"><use href="#i-dice"></use></svg></span>
+        <h2 class="sec-head__title" id="gallery-wargame-title">兵棋截图 <span class="sec-head__count">12 张</span></h2>
+        <a class="sec-head__more" href="work-wargame.html">看兵棋作品 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+      </div>
+      <p class="gallery-section__lead">《最后的狼踪》是我做的一套不对称战术兵棋：狼群潜入牧场、猎杀牲畜、带战果撤离，牧民守畜、封堵洞口。截图来自本地网页原型和 AI 对战平台，棋盘是 16×28 的六边形地图。</p>
+      <div class="gallery-grid">
+
+        <a class="gallery-item" href="assets/img/game-platform.jpg" data-tags="兵棋">
+          <img src="assets/img/game-platform.jpg" alt="《最后的狼踪》AI 对战平台主界面，入口分成开始一局、看对局与查资料三组" loading="lazy">
+          <span class="gallery-item__cap">对局平台主界面：对战、观战与资料 <span>AI 对战平台 · 本地服务</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-board.jpg" data-tags="兵棋">
+          <img src="assets/img/game-board.jpg" alt="兵棋开局部署界面，六边形棋盘上摆着牧民、猎犬与牲畜，右侧列出六种犬的价格与部署点数" loading="lazy">
+          <span class="gallery-item__cap">开局部署：买犬、挖洞、摆算子 <span>准备阶段 · 牧民反制部署</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-map.jpg" data-tags="兵棋">
+          <img src="assets/img/game-map.jpg" alt="完整的兵棋六边形地图，中央是围栏里的牧场和羊群，四周是林地与草原" loading="lazy">
+          <span class="gallery-item__cap">整张战场：牧场、林地与羊群 <span>16×28 格 · 12 回合</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-counter.jpg" data-tags="兵棋">
+          <img src="assets/img/game-counter.jpg" alt="放大的六边形棋盘特写，可见牧民、田地、猎犬、马与大量羊只算子及其数值" loading="lazy">
+          <span class="gallery-item__cap">棋盘特写：牧、田、德与羊群 <span>算子与牲畜标记</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-attack.jpg" data-tags="兵棋">
+          <img src="assets/img/game-attack.jpg" alt="兵棋攻击预演弹窗，列出攻守双方、战斗比率 0.33 与 D6 各点数对应的战果" loading="lazy">
+          <span class="gallery-item__cap">攻击预演：先算战斗比，再掷 D6 <span>第 1 回合 · 狼群攻击阶段</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-replay.jpg" data-tags="兵棋">
+          <img src="assets/img/game-replay.jpg" alt="观战回放界面，左侧是棋盘与播放控制，右侧是战报、积分估算与事件时间轴" loading="lazy">
+          <span class="gallery-item__cap">观战回放：右侧写清每一步的理由 <span>种子 910370 · 366 步 · 狼群大胜</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-scenario.jpg" data-tags="兵棋">
+          <img src="assets/img/game-scenario.jpg" alt="剧本编译器界面，左侧是可编辑的六边形地图，右侧是棋盘尺寸、地形与区域设置" loading="lazy">
+          <span class="gallery-item__cap">剧本编译器：画地形、涂区域、导出 JSON <span>棋盘 16×28 · 12 回合</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-coach.jpg" data-tags="兵棋">
+          <img src="assets/img/game-coach.jpg" alt="Bot 教练台页面，左侧是开局部署等参数滑杆，右侧是技巧水平实测与留言提交" loading="lazy">
+          <span class="gallery-item__cap">Bot 教练台：改数值、写留言、交给 AI <span>AI 对战平台 · 教练台</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-overview.jpg" data-tags="兵棋">
+          <img src="assets/img/game-overview.jpg" alt="战术总览·技能树页面，顶部说明怎么看，下方分狼群方与牧民方两块" loading="lazy">
+          <span class="gallery-item__cap">战术总览 · 技能树：两边现在会什么 <span>AI 对战平台 · 战术总览</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-lobby.jpg" data-tags="兵棋">
+          <img src="assets/img/game-lobby.jpg" alt="在线大厅页面，含账号登录、开一局、房间列表与端口映射说明" loading="lazy">
+          <span class="gallery-item__cap">在线大厅：开房间与快速匹配 <span>本地联机 · 房间管理</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-menu.jpg" data-tags="兵棋">
+          <img src="assets/img/game-menu.jpg" alt="兵棋开局菜单，八个按钮分别进入人人对战、人机对战、AI 对战与回放等模式" loading="lazy">
+          <span class="gallery-item__cap">开局菜单：八个入口都在这里 <span>人人 / 人机 / AI 对战</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/game-mobile.jpg" data-tags="兵棋">
+          <img src="assets/img/game-mobile.jpg" alt="手机竖屏下的兵棋界面，顶部是回合与天气信息，下面是牧民算子详情与操作按钮" loading="lazy">
+          <span class="gallery-item__cap">手机竖屏下的对局界面 <span>第 5 回合 · 牧民攻击阶段</span></span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ================= 数据图表 ================= -->
+    <section class="gallery-section" id="data" aria-labelledby="gallery-data-title">
+      <div class="sec-head">
+        <span class="sec-head__icon"><svg class="icon"><use href="#i-chart"></use></svg></span>
+        <h2 class="sec-head__title" id="gallery-data-title">数据图表 <span class="sec-head__count">12 张</span></h2>
+        <a class="sec-head__more" href="work-bidding.html">看数据作品 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+      </div>
+      <p class="gallery-section__lead">医院招标投标数据采集与分析的产物：27 家医院官网、10709 条公告、9579 个详情页正文。图表由 <code>analyze.py</code> 分析脚本直接输出，包括分布、回归、分类、聚类和 SARIMA 外推。</p>
+      <div class="gallery-grid">
+
+        <a class="gallery-item" href="assets/img/dm-year.png" data-tags="数据">
+          <img src="assets/img/dm-year.png" alt="折线图：2015 至 2026 年招标公告数量逐年上升" loading="lazy">
+          <span class="gallery-item__cap">招标公告数量的年度趋势 <span>图 2 · 2015–2026</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-status.png" data-tags="数据">
+          <img src="assets/img/dm-status.png" alt="饼图：公告类型构成，招标占 66.4%，中标占 27.8%" loading="lazy">
+          <span class="gallery-item__cap">公告类型（招标状态）构成 <span>图 1 · 招标占 66.4%</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-hospital.png" data-tags="数据">
+          <img src="assets/img/dm-hospital.png" alt="横向条形图：27 家医院各自采集到的公告数量，河北医科大学第一医院最多" loading="lazy">
+          <span class="gallery-item__cap">各医院采集到的公告数量 <span>图 4 · 27 家官网</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-category.png" data-tags="数据">
+          <img src="assets/img/dm-category.png" alt="横向条形图：采购标的类型构成，信息化/智慧医院类最多" loading="lazy">
+          <span class="gallery-item__cap">采购标的类型构成 <span>图 6 · 七类标的</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-hospcat.png" data-tags="数据">
+          <img src="assets/img/dm-hospcat.png" alt="热力图：主要医院与采购标的类型的交叉结构，按行归一化" loading="lazy">
+          <span class="gallery-item__cap">主要医院 × 标的类型结构（行归一化） <span>图 7 · 热力图</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-amount.png" data-tags="数据">
+          <img src="assets/img/dm-amount.png" alt="双联图：左侧是招标金额的对数分布直方图，右侧是各状态金额对数箱线图" loading="lazy">
+          <span class="gallery-item__cap">招标金额的对数分布与各状态箱线图 <span>图 5a / 5b · 金额分布</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-winner.png" data-tags="数据">
+          <img src="assets/img/dm-winner.png" alt="横向条形图：中标单位出现频次前二十名" loading="lazy">
+          <span class="gallery-item__cap">中标单位出现频次 TOP 20 <span>图 8 · 供应集中度</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-importance.png" data-tags="数据">
+          <img src="assets/img/dm-importance.png" alt="横向条形图：金额的结构化影响因素，医院、正文字数与标题字数排在前列" loading="lazy">
+          <span class="gallery-item__cap">金额的结构化影响因素（打乱重要性） <span>图 12 · 特征重要性</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-ts.png" data-tags="数据">
+          <img src="assets/img/dm-ts.png" alt="折线图：月度公告量实际值与 SARIMA 预测值，预测段带 80% 置信区间" loading="lazy">
+          <span class="gallery-item__cap">月度公告量 SARIMA 预测与外推 <span>图 19 · 含 80% 置信区间</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-reg.png" data-tags="数据">
+          <img src="assets/img/dm-reg.png" alt="三联图：六种金额预测模型的 R² 对比、随机森林预测与实际散点、残差分布" loading="lazy">
+          <span class="gallery-item__cap">金额预测：六模型、拟合与残差 <span>图 11a–11c · 金额回归</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-cls.png" data-tags="数据">
+          <img src="assets/img/dm-cls.png" alt="横向条形图：五类分类模型的宏平均 F1 对比，朴素贝叶斯明显偏低" loading="lazy">
+          <span class="gallery-item__cap">标的类型分类：五模型宏平均 F1 <span>图 13 · 分类模型对比</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/dm-roc.png" data-tags="数据">
+          <img src="assets/img/dm-roc.png" alt="ROC 曲线：随机森林 AUC 0.913，神经网络 0.870，逻辑回归 0.875" loading="lazy">
+          <span class="gallery-item__cap">高价值采购识别 ROC（金额 &gt; 10 万元） <span>图 16 · 随机森林 AUC 0.913</span></span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ================= 影像截帧 ================= -->
+    <section class="gallery-section" id="film" aria-labelledby="gallery-film-title">
+      <div class="sec-head">
+        <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-film"></use></svg></span>
+        <h2 class="sec-head__title" id="gallery-film-title">影像截帧 <span class="sec-head__count">6 张</span></h2>
+        <a class="sec-head__more" href="work-film.html">看宣传片 <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+      </div>
+      <p class="gallery-section__lead">《最后的狼踪》95 秒宣传片：1920×1080 / 30fps / 无音轨。标题、说明文字和转场由 Pillow 逐帧画出来，再用 ffmpeg 编码；下面是从成片里抽的六帧。</p>
+      <div class="gallery-grid">
+
+        <a class="gallery-item" href="assets/img/film/film-title.jpg" data-tags="影像">
+          <img src="assets/img/film/film-title.jpg" alt="宣传片主标题画面：黑暗背景上发光的「最后的狼踪」五个字" loading="lazy">
+          <span class="gallery-item__cap">主标题：最后的狼踪 <span>宣传片 · 片头标题段</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/film/film-board.jpg" data-tags="影像">
+          <img src="assets/img/film/film-board.jpg" alt="宣传片截帧：六边形棋盘画面配「六边形战场」字幕" loading="lazy">
+          <span class="gallery-item__cap">六边形战场：地形、天气与视野 <span>宣传片 · 战场段</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/film/film-replay.jpg" data-tags="影像">
+          <img src="assets/img/film/film-replay.jpg" alt="宣传片截帧：左侧写着狼 VS 牧与种子 910370，右侧是对局棋盘与战果标注" loading="lazy">
+          <span class="gallery-item__cap">对局实录：狼群多路夹击 <span>种子 910370 · 两个算子协同</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/film/film-deploy.jpg" data-tags="影像">
+          <img src="assets/img/film/film-deploy.jpg" alt="宣传片截帧：左侧算子详情卡，右侧列出五条操作键位说明" loading="lazy">
+          <span class="gallery-item__cap">操作键位：左键、右键、滚轮与撤销 <span>宣传片 · 操作便利段</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/film/film-inspect.jpg" data-tags="影像">
+          <img src="assets/img/film/film-inspect.jpg" alt="宣传片截帧：左边是观战回放，右边是点算子弹出的属性卡" loading="lazy">
+          <span class="gallery-item__cap">点算子看属性卡：攻防移体积与加减来源 <span>宣传片 · 回放段</span></span>
+        </a>
+
+        <a class="gallery-item" href="assets/img/film/film-terminal.jpg" data-tags="影像">
+          <img src="assets/img/film/film-terminal.jpg" alt="宣传片截帧：终端里运行 run-match.js 的输出，右侧列出 --seed 与 --out 等参数" loading="lazy">
+          <span class="gallery-item__cap">自动化脚本：一条命令跑一局 <span>宣传片 · 脚本参数段</span></span>
+        </a>
+
+      </div>
+    </section>
+
+  </div>
+
+  <section class="card gallery-end">
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-sparkle"></use></svg></span>
+      <h2 class="sec-head__title">图看完了，来看过程</h2>
+    </div>
+    <p class="gallery-end__text">图集只截了结果。这些图背后的采集管道、规则引擎和渲染脚本，在作品页和随笔里有完整版——包括没做完的部分。</p>
+    <div class="btn-row">
+      <a class="btn btn--primary" href="works.html"><svg class="icon"><use href="#i-works"></use></svg>去看作品</a>
+      <a class="btn btn--ghost" href="posts.html"><svg class="icon"><use href="#i-posts"></use></svg>去读随笔</a>
+      <a class="btn btn--soft" href="about.html"><svg class="icon"><use href="#i-about"></use></svg>关于这个站</a>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

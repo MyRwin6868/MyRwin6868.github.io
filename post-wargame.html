@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>把纸面兵棋做成能跑、能测、能联机的程序 · 鹤与鱼</title>
+<meta name="description" content="《最后的狼踪》从纸面规则到可运行程序的复盘：状态机与事件流、战斗结算、界面、AI 对战、本地联机、约 899 个自动化检查项，以及一次 AI 协作排障。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/posts.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+</head>
+<body data-page="post" data-sub="posts">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <a href="posts.html">随笔</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">把纸面兵棋做成程序</span>
+  </nav>
+
+  <div class="article-layout">
+    <article class="card article-card">
+      <header class="article-head">
+        <div class="article-head__tags">
+          <span class="tag tag--red">兵棋</span>
+          <span class="tag tag--ink">独立开发</span>
+        </div>
+        <h1 class="article-title">把纸面兵棋做成能跑、能测、能联机的程序</h1>
+        <p class="article-lead">一套纸面规则怎么落到状态机、AI 和自动化测试上，以及其中最烦的那些边界情况：骰子、天气、回放，还有一次「任务下发故障」的排障记录。</p>
+        <div class="article-meta">
+          <span><svg class="icon"><use href="#i-calendar"></use></svg>2026-10-17</span>
+          <span><svg class="icon"><use href="#i-clock"></use></svg>10 分钟</span>
+          <span><svg class="icon"><use href="#i-tag"></use></svg>规则引擎 / AI / 自动化测试</span>
+        </div>
+      </header>
+
+      <div class="prose">
+        <h2 id="s1">一、从一张纸开始：规则先能被裁定</h2>
+        <p>《最后的狼踪》最初是一套纸面规则：16×28 的六边形地图，12 个回合，狼群从洞口进场、穿过牧场猎杀牲畜、带着战果从撤离区离开；牧民守畜、买犬、封堵洞口。两边目标不对称，信息也不对称。</p>
+        <p>纸面规则能自洽，不代表程序能执行。写给人看的规则允许「酌情处理」，写进代码就不允许——每个「酌情」最后都是一条 if 或一次查表。所以动手之前我先做了一份裁定表：每条规则的出处、争议怎么裁定、代码落在哪、改过几次，都写在里面。这不是形式主义：后来每次改数值，争议都能直接翻到那一页，而不是重新吵一遍。</p>
+        <p>规模上，这个项目最后有 <span class="posts-num">167</span> 个 JS / MJS 文件、<span class="posts-num">60</span> 次提交；除主界面外还有剧本编辑器、AI 对战平台、联机大厅和观战回放。</p>
+
+        <h2 id="s2">二、状态机：让「回合」变成可回放的事件</h2>
+        <p>回合制规则最怕状态散落在界面里：界面看着对，换条路径就错。我的做法是把一局拆成明确的状态：准备（选边、部署）→ 回合开始（天气、策略）→ 行动阶段（移动、攻击、挖掘、撤离）→ 结算 → 回合结束，每一步都产出事件记录。回放不是重新算一遍，而是按事件流重放——这样才能保证「看到的」就是「发生过的」。</p>
+        <p>最麻烦的是战斗结算。一次近战先确认攻守双方，算战斗比率得到战果列，再掷 D6 查表：0.33 的比率落在 ≤1:2 列，掷出 1—6 分别对应 AE、AL、AD、无战果、无战果、DD 这类结果，各档的伤亡与推进都不一样。骰子必须可注入——测试要固定随机数，回放要复现同一场，所以随机种子进记录，命令行也能指定 <code>--seed</code>。</p>
+        <p>天气同样进战斗修正：月明星稀、乌云遮月、疾风骤起会给攻防不同加成；12 个回合的天气提前排成一条时间轴，打之前就知道后面几回合的天。</p>
+
+        <figure>
+          <img src="assets/img/game-attack.jpg" alt="兵棋截图：攻击预演窗口，显示攻守双方、战斗比率、D6 战果列与各点数对应的战果" loading="lazy">
+          <figcaption>攻击预演：确认攻守双方后算战斗比率（这里 0.33 → 战果列 ≤1:2），再掷 D6 查表。</figcaption>
+        </figure>
+
+        <h2 id="s3">三、界面：规则、信息与操作的分寸</h2>
+        <p>界面的第一原则是「别让玩家替程序记状态」。棋盘要能拖着看、滚轮缩放，算子上直接显示攻防移和体积；行动时给浮卡，把这次行动的消耗、目标格、可能结果摆出来。键位压到很少：左键选中、右键取消、滚轮缩放、空格结束阶段，再加上撤销和同格切换，基本覆盖一局的操作。</p>
+        <p>部署阶段做了「一键布阵」：同一套方案能复现同一套开局，这样比较两版 AI 权重时，变量只剩 AI，不包含手滑。</p>
+
+        <figure>
+          <img src="assets/img/game-board.jpg" alt="兵棋截图：六边形地图上的开局部署界面，右侧显示可购买的犬种点数与战报" loading="lazy">
+          <figcaption>开局部署：牧民按点数买犬、沿牧场栅栏布置；右侧是犬种点数、剩余点数与战报。</figcaption>
+        </figure>
+
+        <p>剧本编辑器是后来才补的：16 列 × 28 行 × 12 回合，地形（草地 / 树林 / 小丘）、区域（牧场 / 袭击场 / 部署区 / 撤离区）、栅栏与洞口都能直接刷；改尺寸会裁掉或补足超出范围的格子，牧场、袭击场、部署区各多少格实时统计。剧本还会存进图库，对局和回放都绑剧本——不绑剧本的回放没有意义。</p>
+
+        <figure>
+          <img src="assets/img/game-scenario.jpg" alt="兵棋截图：剧本编译器界面，16 × 28 六边形地图与右侧地形、区域、洞口设置面板" loading="lazy">
+          <figcaption>剧本编译器：16 列 × 28 行 × 12 回合，地形、区域、洞口、牧场都能刷，改完直接试玩。</figcaption>
+        </figure>
+
+        <h2 id="s4">四、AI：先能跑，再谈强</h2>
+        <p>AI 分两层。一层是内置 Bot：对每个候选行动估收益和风险，取分最高的执行；难点不在公式，而在归因——把一次决策的分数拆开，才知道它是被距离、暴露度还是假动作影响的。另一层是「大模型上桌」：平台里填 API 地址和密钥，两个大模型自己打一局，或者一个大模型对一个 Bot。</p>
+        <p>给 AI 用的工具不止对战。Bot 教练台左边列出每个权重的含义和当前值，右边用固定种子跑几局测「技巧水平」；改完提交，后台写文件、改代码、跑测试，再把结果写回训练记录。战术总览则把「现在会什么、不会什么、什么其实不该用」分成已实现、有雏形、还没做、实测不建议四档——避免自己骗自己。</p>
+
+        <h2 id="s5">五、联机：先本地，再谈公网</h2>
+        <p>联机没有一上来做公网。先做本地联机：账号与房间管理、开房、加入、观战；服务只监听本机，两个人同一台电脑或局域网就能打。不依赖第三方框架、主体只用 Node 内置模块，少一个依赖就少一类环境问题。</p>
+        <p>观战和直播是副产品：每个行动一步播，可以暂停、慢放、倒回、跳到下一场战斗，地图可缩放拖动；对局记录按种子、剧本、结果落盘，点回放直接开。做 OBS 直播只需要加一个浏览器源。</p>
+
+        <figure>
+          <img src="assets/img/game-platform.jpg" alt="兵棋截图：本地对局平台首页，列有人人对战、人机对战、AI 对战、对局记录与观战回放入口" loading="lazy">
+          <figcaption>本地对战平台首页：人人、人机、AI 对战三种模式，外加对局记录与观战回放。</figcaption>
+        </figure>
+
+        <h2 id="s6">六、自动化测试：约 899 个检查项兜底</h2>
+        <p>规则改一个数值，影响可能是几十场对局。手动点不现实，所以测试分三层：地图坐标与数值表（纯数据校验）、对局模拟（固定种子跑完整局）、回放保真（重放结果与原始对局一致）。现在有 <span class="posts-num">30</span> 个测试文件、约 <span class="posts-num">899</span> 个检查项，一条命令跑完；改规则或数值后必须回归，这是底线。</p>
+        <p>批量对照用 <code>quickscore.js</code>：同一批种子跑两套权重，比胜率和积分。测试的价值不是「证明我对」，而是把「不知道哪里变了」变成「知道哪条断言挂了」。</p>
+
+        <figure>
+          <img src="assets/img/game-replay.jpg" alt="兵棋截图：观战回放界面，右侧显示每一步的 AI 行动思路与积分估算，底部是回放控制条" loading="lazy">
+          <figcaption>观战回放：按事件流重放，右侧是每一步的行动记录与积分估算，底部可 0.5×—8× 变速。</figcaption>
+        </figure>
+
+        <h2 id="s7">七、AI 协作与一次排障</h2>
+        <p>这个项目大量用 AI 协作：我给子代理定角色、写派工模板、定验收口径，再让它们改代码。最有价值的一次是排查「任务下发故障」：某个环节的任务没有真的下发，表现出来却像规则算错。日志里没有明显异常，于是做 A/B 对照——保留和去掉可疑组件，各跑一批固定种子的对局，差异集中在某个分支；再顺着日志时间线回看，才定位到是下发链路的问题，不是规则本身。</p>
+        <p>这件事改了我两个习惯：一是让 AI 先产出可验证的中间物（日志、分数拆解、事件流），再谈改代码；二是验收口径必须写成能检查的断言，「看起来更聪明」不算验收。</p>
+        <p>限制也直说：AI 的平衡性还没调好，公网联机和回放分享没做，手机版能打开但操作仍按桌面键位设计。下一步先把剧本图库和分享补齐，再考虑公网。完整截图与系统构成在作品页：<a href="work-wargame.html">《最后的狼踪》不对称战术兵棋</a>。</p>
+      </div>
+
+      <footer class="article-foot">
+        <div class="article-foot__tags">
+          <span class="tag tag--ink">规则引擎</span>
+          <span class="tag tag--ink">状态机</span>
+          <span class="tag tag--ink">AI 对战</span>
+          <span class="tag tag--ink">自动化测试</span>
+        </div>
+        <button class="like-btn" type="button" data-like="post-wargame" data-like-base="9">
+          <svg class="icon"><use href="#i-heart"></use></svg>
+          <span>喜欢</span><span data-like-count>9</span>
+        </button>
+      </footer>
+    </article>
+
+    <aside class="article-aside">
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-list"></use></svg></span>
+          <h2 class="sec-head__title">本文目录</h2>
+        </div>
+        <nav class="toc-list" data-toc aria-label="文章目录">
+          <a href="#s1">一、从一张纸开始：规则先能被裁定</a>
+          <a href="#s2">二、状态机：让「回合」变成可回放的事件</a>
+          <a href="#s3">三、界面：规则、信息与操作的分寸</a>
+          <a href="#s4">四、AI：先能跑，再谈强</a>
+          <a href="#s5">五、联机：先本地，再谈公网</a>
+          <a href="#s6">六、自动化测试：约 899 个检查项兜底</a>
+          <a href="#s7">七、AI 协作与一次排障</a>
+        </nav>
+      </section>
+
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-dice"></use></svg></span>
+          <h2 class="sec-head__title">这篇的数字</h2>
+        </div>
+        <div class="posts-facts">
+          <div class="posts-facts__row"><span>JS / MJS 文件</span><b>167 个</b></div>
+          <div class="posts-facts__row"><span>Git 提交</span><b>60 次</b></div>
+          <div class="posts-facts__row"><span>测试文件</span><b>30 个</b></div>
+          <div class="posts-facts__row"><span>自动化检查项</span><b>约 899 个</b></div>
+          <div class="posts-facts__row"><span>地图 / 回合</span><b>16×28 / 12</b></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-about"></use></svg></span>
+          <h2 class="sec-head__title">关于我</h2>
+        </div>
+        <p class="muted" style="font-size:12.5px">应用统计学 2027 届，在找数据分析相关的工作。这里放的都是在做的项目与写下来的复盘。</p>
+        <div class="btn-row" style="margin-top:12px">
+          <a class="btn btn--sm btn--soft" href="works.html">看作品</a>
+          <a class="btn btn--sm btn--ghost" href="about.html">关于</a>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="next-prev" aria-label="上一篇下一篇">
+    <a href="posts.html"><div class="next-prev__label">← 回到列表</div><div class="next-prev__title">全部随笔</div></a>
+    <a class="next-prev--next" href="post-film.html"><div class="next-prev__label">下一篇 →</div><div class="next-prev__title">95 秒宣传片：每一帧都是程序画的</div></a>
+  </nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

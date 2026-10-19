@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>关于 · 鹤与鱼</title>
+<meta name="description" content="关于鹤与鱼：应用统计学 2027 届，在找数据分析相关工作；时间线、技能与工具、这个纯静态小站怎么做的，以及联系方式。站内不放真实姓名。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/about.css">
+<!-- 防止主题闪烁：在 CSS 之前先读本地主题 -->
+<script>
+  try {
+    var d = localStorage.getItem("mrywin.decor");
+    if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn";
+    document.documentElement.setAttribute("data-decor", d);
+  } catch (e) {}
+</script>
+</head>
+<body data-page="about">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main about-page">
+
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">关于</span>
+  </nav>
+
+  <section class="card page-hero about-hero">
+    <div class="page-hero__tag"><span class="eyebrow">关于 · ABOUT</span></div>
+    <h1 class="page-hero__title">关于我，和这个<span>小站</span></h1>
+    <p class="page-hero__lead">应用统计学 2027 届，现在在找数据分析相关的工作。这个站不放真实姓名、学号和联系方式，只用项目、数字和图说话。</p>
+    <div class="page-hero__meta">
+      <span><svg class="icon"><use href="#i-about"></use></svg>应用统计学 · 2027 届</span>
+      <span><svg class="icon"><use href="#i-works"></use></svg>求职方向：数据分析</span>
+      <span><svg class="icon"><use href="#i-shield"></use></svg>不公开真实身份信息</span>
+      <span><svg class="icon"><use href="#i-calendar"></use></svg>更新于 2026-10-19</span>
+    </div>
+    <div class="page-hero__art"><svg class="icon"><use href="#i-whale"></use></svg></div>
+  </section>
+
+  <!-- ================= 自我介绍 ================= -->
+  <section class="card about-intro" aria-labelledby="about-intro-title">
+    <div class="about-intro__figure">
+      <div class="about-intro__avatar" data-avatar role="img" aria-label="鹤与鱼的头像插画：一只白鹤和一条小鲸鱼"></div>
+      <div class="about-intro__name">MyRwin <span>鹤与鱼</span></div>
+      <span class="about-status"><span class="about-status__dot"></span>在线 · 在找工作</span>
+      <div class="about-intro__tags">
+        <span class="tag">应用统计学</span>
+        <span class="tag tag--red">2027 届</span>
+        <span class="tag tag--ink">数据分析</span>
+      </div>
+    </div>
+
+    <div class="about-intro__body">
+      <div class="sec-head">
+        <span class="sec-head__icon"><svg class="icon"><use href="#i-about"></use></svg></span>
+        <h2 class="sec-head__title" id="about-intro-title">先认识一下</h2>
+        <span class="sec-head__count">MyRwin</span>
+      </div>
+      <p>我叫自己 MyRwin，站名是「鹤与鱼」：一只会飞的鹤，一条会潜的鲸。应用统计学本科，2027 届。现在的主要任务是找一份数据分析相关的工作，同时把 SQL、数仓和后端部署这几块补到能拿得出手。</p>
+      <p>做过的事大致分三块：数据采集与分析、兵棋设计、程序化影像。数据这边做过医院招投标采集与分析（27 家官网、10709 条公告）；兵棋这边有一套《最后的狼踪》，从规则书一路做到网页原型、AI 对战平台和自动化测试；影像这边用 Pillow 逐帧画了一部 95 秒宣传片。</p>
+      <p>共同点大概是：我喜欢把一件事从头到尾跑通，再把口径、限制和没做完的部分写清楚。</p>
+      <ul class="about-facts">
+        <li>
+          <span class="about-facts__icon"><svg class="icon"><use href="#i-chart"></use></svg></span>
+          <span><strong>数据</strong>：SQL / Python 取数与清洗，统计建模加可视化，结论和口径一起写。</span>
+        </li>
+        <li>
+          <span class="about-facts__icon"><svg class="icon"><use href="#i-dice"></use></svg></span>
+          <span><strong>兵棋</strong>：规则引擎、网页界面、AI 对战与回归测试，尽量让每个改动都能复现。</span>
+        </li>
+        <li>
+          <span class="about-facts__icon"><svg class="icon"><use href="#i-film"></use></svg></span>
+          <span><strong>影像</strong>：Pillow 逐帧合成、ffmpeg 编码，每一帧都是算出来的。</span>
+        </li>
+        <li>
+          <span class="about-facts__icon"><svg class="icon"><use href="#i-location"></use></svg></span>
+          <span><strong>求职</strong>：数据分析相关岗位，2027 届，可实习、可校招。</span>
+        </li>
+      </ul>
+      <p class="about-footnote">站内不放真实姓名、学号、手机号和住址——不是藏着，是不想把身份信息散在公网上。</p>
+    </div>
+  </section>
+
+  <!-- ================= 时间线 ================= -->
+  <section class="card about-timeline" aria-labelledby="about-timeline-title">
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-calendar"></use></svg></span>
+      <h2 class="sec-head__title" id="about-timeline-title">时间线</h2>
+      <span class="sec-head__count">2024 → 2026</span>
+    </div>
+    <p class="about-section-lead">只列真实发生过的时间点：竞赛、实习、项目和成片。所有数字都能在项目 README 里对上。</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-item__date">2026 / 10 / 19</div>
+        <div class="timeline-item__title">「鹤与鱼」小站上线</div>
+        <div class="timeline-item__desc">首页、作品、图集、随笔、关于五个页面搭完，30 张图集和 4 篇随笔整理进站。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2026 / 10 / 10</div>
+        <div class="timeline-item__title">95 秒宣传片成片</div>
+        <div class="timeline-item__desc">《最后的狼踪》宣传片：1920×1080 / 30fps / 无音轨，Pillow 逐帧合成、ffmpeg 编码。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2026 / 10</div>
+        <div class="timeline-item__title">医院招标投标数据实践</div>
+        <div class="timeline-item__desc">《大数据挖掘综合实践》实验：采集 27 家医院官网的 10709 条公告，落盘 9579 个详情页正文与 2830 个附件，剔除无关公告 1332 条。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2026 / 06 – 09</div>
+        <div class="timeline-item__title">《最后的狼踪》主体开发</div>
+        <div class="timeline-item__desc">网页原型、AI 对战平台、剧本编译器和自动化测试集中在这几个月；项目共 167 个 JS / MJS 文件、60 次提交、30 个测试文件。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2026 / 02</div>
+        <div class="timeline-item__title">兵棋规则书成型</div>
+        <div class="timeline-item__desc">《最后的狼踪》规则手册定稿；后面的引擎、界面和测试都是照着这本规则书落的。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2025 / 05</div>
+        <div class="timeline-item__title">「正大杯」市场调查与分析大赛</div>
+        <div class="timeline-item__desc">本科组全国总决赛三等奖、浙江省选拔赛一等奖；负责问卷量表设计与结构方程分析。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2025 / 05</div>
+        <div class="timeline-item__title">校级「崇本杯」数学建模竞赛 · 一等奖</div>
+        <div class="timeline-item__desc">用 R 完成某地 6 年出警数据的清洗（IQR 异常值处理）与时间序列预测，产出 83 页论文。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2024 / 12</div>
+        <div class="timeline-item__title">浙江省「民生民意杯」统计调查方案设计大赛</div>
+        <div class="timeline-item__desc">本科组三等奖；负责问卷设计与结构方程分析。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2024 / 07 – 08</div>
+        <div class="timeline-item__title">区统计局实习 · 综合核算和法规科</div>
+        <div class="timeline-item__desc">用 Excel 公式完成 26 张报表的数据调用、汇总与整理，覆盖 13 个区县、6 个月数据；参与统计报告初稿的数据核对与文字校对，实习鉴定优秀。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">2024 / 07</div>
+        <div class="timeline-item__title">第十届全国大学生统计建模大赛 · 浙江赛区三等奖</div>
+        <div class="timeline-item__desc">收集老年人慢性病数据，用 MATLAB 构建 GA-LSTM 模型，完成参数寻优与多模型对比。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 技能与工具 ================= -->
+  <section class="card about-skills" aria-labelledby="about-skills-title">
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-code"></use></svg></span>
+      <h2 class="sec-head__title" id="about-skills-title">技能与工具</h2>
+      <span class="sec-head__count">常用的七块</span>
+    </div>
+    <p class="about-section-lead">分「已经能独立做」和「还在补」写，不把了解写成熟练。</p>
+
+    <div class="about-skill-grid">
+      <article class="about-skill-card">
+        <div class="about-skill-card__head">
+          <span class="about-skill-card__icon"><svg class="icon"><use href="#i-database"></use></svg></span>
+          <h3>SQL</h3>
+        </div>
+        <p>多表连接、分组聚合与业务口径查询。窗口函数和执行计划还在补，练习题和项目查询都留着。</p>
+      </article>
+
+      <article class="about-skill-card">
+        <div class="about-skill-card__head">
+          <span class="about-skill-card__icon"><svg class="icon"><use href="#i-code"></use></svg></span>
+          <h3>Python</h3>
+        </div>
+        <p>pandas / numpy / scikit-learn 做清洗、特征与建模；requests + BeautifulSoup 写采集，配限速、缓存和重试。</p>
+      </article>
+
+      <article class="about-skill-card">
+        <div class="about-skill-card__head">
+          <span class="about-skill-card__icon"><svg class="icon"><use href="#i-chart"></use></svg></span>
+          <h3>统计建模</h3>
+        </div>
+        <p>回归与正则化、树模型、分类、聚类、时间序列（SARIMA）；SPSS 信效度与因子分析，Amos 结构方程模型。</p>
+      </article>
+
+      <article class="about-skill-card">
+        <div class="about-skill-card__head">
+          <span class="about-skill-card__icon"><svg class="icon"><use href="#i-works"></use></svg></span>
+          <h3>HTML · CSS · JS</h3>
+        </div>
+        <p>原生写页面和交互：这个站和兵棋网页原型都没有框架、没有构建步骤，改完刷新就能看。</p>
+      </article>
+
+      <article class="about-skill-card">
+        <div class="about-skill-card__head">
+          <span class="about-skill-card__icon"><svg class="icon"><use href="#i-dice"></use></svg></span>
+          <h3>兵棋设计</h3>
+        </div>
+        <p>规则、数值与状态机；剧本编译器、AI 对战、观战回放，以及能一键跑完的回归测试。</p>
+      </article>
+
+      <article class="about-skill-card">
+        <div class="about-skill-card__head">
+          <span class="about-skill-card__icon"><svg class="icon"><use href="#i-film"></use></svg></span>
+          <h3>程序化影像</h3>
+        </div>
+        <p>Pillow 逐帧合成、字体与版式、色板与颗粒；ffmpeg 编码、裁切和码率取舍。</p>
+      </article>
+
+      <article class="about-skill-card about-skill-card--wide">
+        <div class="about-skill-card__head">
+          <span class="about-skill-card__icon about-skill-card__icon--red"><svg class="icon"><use href="#i-sparkle"></use></svg></span>
+          <h3>AI 工作流</h3>
+        </div>
+        <p>多 Agent 协作：角色设计、派工模板和验收口径；用日志取证与 A/B 对照定位问题。AI 负责提速，方向和验收标准我自己定。</p>
+      </article>
+    </div>
+
+    <div class="skill-cloud about-skill-cloud">
+      <span>SQL</span><span>Python</span><span>pandas</span><span>scikit-learn</span><span>R</span><span>SPSS</span>
+      <span>Amos</span><span>MATLAB</span><span>Excel</span><span>HTML / CSS / JS</span><span>Git</span>
+      <span>Pillow</span><span>ffmpeg</span><span>多 Agent 工作流</span>
+    </div>
+  </section>
+
+  <!-- ================= 这个站点怎么做的 ================= -->
+  <section class="card about-site" aria-labelledby="about-site-title">
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-info"></use></svg></span>
+      <h2 class="sec-head__title" id="about-site-title">这个站点怎么做的</h2>
+      <span class="sec-head__count">纯静态</span>
+    </div>
+    <p class="about-section-lead">没有后台、没有数据库、没有统计脚本。所有内容都是写死的 HTML，打开就能看。</p>
+
+    <div class="about-site-grid">
+      <article class="about-site-card">
+        <div class="about-site-card__head"><svg class="icon"><use href="#i-code"></use></svg>纯静态</div>
+        <p>HTML + CSS + 原生 JS，没有框架、没有构建步骤、没有外部 CDN 和 ES module。base.css 管设计变量和公共组件，app.js 负责导航、页脚、图标、灯箱和主题，每页再带一份自己的 CSS。</p>
+      </article>
+
+      <article class="about-site-card">
+        <div class="about-site-card__head"><svg class="icon"><use href="#i-gallery"></use></svg>素材来自自己的项目</div>
+        <p>30 张图全部来自自己做的东西：12 张招投标分析图表、12 张兵棋截图、6 帧宣传片。背景的鲸和鹤是 SVG，图标是一套内联 sprite，没有用图库素材。</p>
+      </article>
+
+      <article class="about-site-card">
+        <div class="about-site-card__head"><svg class="icon"><use href="#i-shield"></use></svg>隐私说明</div>
+        <p>站内不出现任何人的真实姓名、学号、手机号、住址和家人信息；实习和竞赛只写机构与赛事名，不写合作者姓名。留言板是演示版，内容只存在访问者自己的浏览器里。</p>
+      </article>
+
+      <article class="about-site-card">
+        <div class="about-site-card__head"><svg class="icon"><use href="#i-music"></use></svg>背景音乐</div>
+        <p>播放器里的三首曲子由 Web Audio API 实时合成，没有音频文件；晨曦 / 夜航 / 纸笺三套主题记在浏览器本地，换设备不会跟着走。</p>
+      </article>
+
+      <article class="about-site-card">
+        <div class="about-site-card__head"><svg class="icon"><use href="#i-eye"></use></svg>那些数字</div>
+        <p>运行天数按上线日期算；访问量只记在本机 localStorage 里，是演示数据，没有接统计服务。数字好看不好看，都不影响内容。</p>
+      </article>
+
+      <article class="about-site-card about-site-card--truth">
+        <div class="about-site-card__head"><svg class="icon"><use href="#i-quote"></use></svg>真实性说明</div>
+        <p>页面结构、文案和前端实现由我和 AI 工具协作完成；作品数据、图表、截图和影片都来自我自己的项目。站内不使用真实姓名，也没有使用参考站点的代码或图片。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= 联系方式 ================= -->
+  <section class="card about-contact" id="contact" aria-labelledby="about-contact-title">
+    <div class="about-contact__main">
+      <div class="sec-head">
+        <span class="sec-head__icon"><svg class="icon"><use href="#i-message"></use></svg></span>
+        <h2 class="sec-head__title" id="about-contact-title">联系方式</h2>
+        <span class="sec-head__count">邮件联系</span>
+      </div>
+      <p>找我看项目、问细节、约面试，都直接发邮件：<a href="mailto:2261167509@qq.com"><strong>2261167509@qq.com</strong></a>。我平时会看邮箱，附上岗位或项目链接会更快。</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="mailto:2261167509@qq.com"><svg class="icon"><use href="#i-mail"></use></svg>发邮件</a>
+        <button class="btn btn--ghost" type="button" data-copy-email><svg class="icon"><use href="#i-copy"></use></svg>复制邮箱</button>
+        <a class="btn btn--soft" href="works.html"><svg class="icon"><use href="#i-works"></use></svg>先看作品</a>
+      </div>
+      <p class="about-footnote"><svg class="icon"><use href="#i-info"></use></svg>点「复制邮箱」可以直接粘贴到邮件客户端；首页留言板是本地演示，我这边看不到。</p>
+    </div>
+
+    <aside class="about-contact__side">
+      <h3>公开的 / 不公开的</h3>
+      <ul class="about-privacy-list">
+        <li><svg class="icon"><use href="#i-check"></use></svg>公开：作品、项目数据与联系邮箱</li>
+        <li><svg class="icon"><use href="#i-check"></use></svg>不公开：真实姓名、学号</li>
+        <li><svg class="icon"><use href="#i-check"></use></svg>不公开：手机号、住址</li>
+        <li><svg class="icon"><use href="#i-check"></use></svg>不公开：家人与紧急联系人信息</li>
+      </ul>
+      <p>邮箱是留给招聘方和同好的；其余身份信息不往公网上放。项目和数据可以随便看，人先留在文字后面。</p>
+    </aside>
+  </section>
+
+  <!-- ================= 给未来自己的话 ================= -->
+  <section class="card about-letter" aria-labelledby="about-letter-title">
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-quote"></use></svg></span>
+      <h2 class="sec-head__title" id="about-letter-title">给未来自己的话</h2>
+      <span class="sec-head__count">2027</span>
+    </div>
+    <blockquote class="about-letter__quote">
+      <p>写给 2027 年毕业时的我：</p>
+      <p>如果你在翻这一页，说明这个站还活着。希望那时候你已经有一份自己愿意做的工作，SQL 不用临时查语法，看到模型指标会先问口径。也希望你还愿意做点「没用」的东西——一局兵棋、一段片子，提醒自己不是只会交报表。</p>
+      <p>如果还没找到工作，也别急。把手上这件事跑通，再跑通下一件。这个站就是证据：2024 年的一份问卷、2025 年的一摞竞赛论文、2026 年的 10709 条公告和 167 个 JS 文件，都是一件一件做出来的。</p>
+      <cite>—— 2026 年 10 月的 MyRwin</cite>
+    </blockquote>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

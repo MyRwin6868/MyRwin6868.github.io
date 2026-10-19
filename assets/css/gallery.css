@@ -1,0 +1,127 @@
+/* ==========================================================================
+   图集页 gallery.html —— 只服务图集页
+   选择器统一用 gallery- / .gallery-page 前缀；不覆盖 base.css 的公共组件
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 页头与工具条
+   -------------------------------------------------------------------------- */
+.gallery-hero .page-hero__lead { max-width: 680px; }
+
+.gallery-jump-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-3);
+  font-weight: 700;
+  transition: color 0.22s var(--ease-out);
+}
+.gallery-jump-link:hover { color: var(--brand); }
+.gallery-jump-link .icon { width: 14px; height: 14px; color: var(--brand); }
+
+.gallery-toolbar { margin-bottom: var(--gap); }
+
+.gallery-chip-count {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 5px;
+  margin-left: 1px;
+  border-radius: var(--radius-full);
+  color: inherit;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  opacity: 0.85;
+}
+.chip.is-active .gallery-chip-count { background: color-mix(in srgb, #fff 22%, transparent); opacity: 1; }
+
+/* 桌面端让筛选条吸在导航下，长页面也能随手切换 */
+@media (min-width: 961px) {
+  .gallery-toolbar {
+    position: sticky;
+    top: 88px;
+    z-index: 60;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. 图集分区
+   -------------------------------------------------------------------------- */
+.gallery-scope { display: block; }
+
+.gallery-section {
+  margin-bottom: 38px;
+  scroll-margin-top: 108px;
+}
+.gallery-section:last-child { margin-bottom: 0; }
+.gallery-section .sec-head { margin-bottom: 8px; }
+
+.gallery-section__lead {
+  max-width: 760px;
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--text-2);
+}
+.gallery-section__lead code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  padding: 1px 6px;
+  border-radius: 6px;
+  color: var(--brand-deep);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+}
+
+/* 筛选后某分区一张都不剩时，连同标题一起收起（Chrome 105+ 支持 :has） */
+.gallery-section:not(:has(.gallery-item:not([hidden]))) { display: none; }
+
+/* --------------------------------------------------------------------------
+   3. 图块
+   -------------------------------------------------------------------------- */
+/* app.js 的筛选会给图块加 hidden 属性，这里兜住 base.css 里的 display:block */
+.gallery-item[hidden] { display: none !important; }
+
+.gallery-item img { background: var(--surface-soft); }
+
+/* 键盘聚焦时也把图注露出来，不只靠 hover */
+.gallery-item:focus-visible .gallery-item__cap {
+  opacity: 1;
+  transform: none;
+}
+
+/* 触屏设备没有 hover，图注常驻，避免每张图只剩一张哑图 */
+@media (hover: none) {
+  .gallery-item__cap { opacity: 1; transform: none; }
+  .gallery-item__cap span { opacity: 0.85; }
+}
+
+/* --------------------------------------------------------------------------
+   4. 结尾引导
+   -------------------------------------------------------------------------- */
+.gallery-end { margin-top: 38px; }
+.gallery-end__text {
+  max-width: 720px;
+  margin-bottom: 16px;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--text-2);
+}
+
+/* --------------------------------------------------------------------------
+   5. 响应式
+   -------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  .gallery-section { margin-bottom: 30px; }
+  .gallery-section__lead { font-size: 12.5px; }
+  .gallery-toolbar { border-radius: var(--radius-lg); }
+}
+
+@media (max-width: 560px) {
+  .gallery-toolbar { gap: 8px 10px; }
+  .gallery-toolbar .filter-bar__spacer { display: none; }
+  .gallery-toolbar .filter-count { margin-left: auto; }
+  .gallery-chip-count { display: none; }
+  .gallery-end__text { font-size: 12.5px; }
+}

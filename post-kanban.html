@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用一张看板管住 12 周学习 · 鹤与鱼</title>
+<meta name="description" content="把数据建设的 12 周计划收进一个 JSON，用构建脚本生成带进度打勾、三视图、每日分配和里程碑 .ics 导出的看板，以及维护它的约定。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+<style>
+  .post-table-wrap { margin: 22px 0; overflow-x: auto; }
+  .post-table-wrap table { margin-top: 0; margin-bottom: 0; }
+  .post-table-wrap table th { white-space: normal; }
+  .post-time-table td:first-child { white-space: nowrap; font-family: var(--font-mono); font-size: 12.5px; color: var(--brand-deep); }
+  html[data-decor="night"] .post-pre { background: var(--surface-soft); border-color: var(--line-strong); color: var(--text-2); }
+  @media (max-width: 560px) {
+    .post-table-wrap table { font-size: 12.5px; }
+    .post-table-wrap table th, .post-table-wrap table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body data-page="post" data-sub="posts">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <a href="posts.html">随笔</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">12 周看板</span>
+  </nav>
+
+  <div class="article-layout">
+    <article class="card article-card">
+      <header class="article-head">
+        <div class="article-head__tags">
+          <span class="tag">方法</span>
+          <span class="tag tag--ink">工具</span>
+        </div>
+        <h1 class="article-title">用一张看板管住 12 周学习</h1>
+        <p class="article-lead">数据建设的 12 周计划，之前散在两个文档、一张日历和我的记忆里：今天学一点，下周就找不到。后来我把计划收进一个 JSON，写了个小脚本，生成一张能打勾、能看进度、能把里程碑导进日历的看板。</p>
+        <div class="article-meta">
+          <span><svg class="icon"><use href="#i-calendar"></use></svg>2026-10-15</span>
+          <span><svg class="icon"><use href="#i-clock"></use></svg>5 分钟</span>
+          <span><svg class="icon"><use href="#i-tag"></use></svg>计划管理 / 数据驱动</span>
+        </div>
+      </header>
+
+      <div class="prose">
+        <h2 id="s1">一、问题：学一点，散一桌</h2>
+        <p>2026 年 10 月 10 日，我给自己立了 12 周的数据建设计划，要补五块能力：采集、存储、建模、BI、治理。计划本身不复杂，问题是它没有固定形态——学习路线在一个文档，每天的时间块在另一个文档，里程碑只在我脑子里。学一点、散在桌面上，下周就找不到。</p>
+        <p>所以我要的不是一张好看的图，而是一个开工前能回答三个问题的地方：现在在哪个环节？落在第几周？下一个硬日期是什么时候？</p>
+
+        <h2 id="s2">二、只留一份数据：看板数据.json</h2>
+        <p>看板里所有内容都来自同一个 JSON：12 个周次的起止日期、4 个阶段、5 个环节、每日 4 段时间、10 条里程碑。</p>
+        <p>环节是主角，每条写清定位、现状、要补、工具、验收和周次。比如存储：现状是「只会写 SQL 查询，从没装过数据库」；要补的是装 PostgreSQL，掌握表规范里的主键、索引、字段注释；验收是能完整口述「数据从哪来 → 存哪 → 怎么查」。</p>
+        <p>阶段把周次和环节绑在一起：阶段 0 用第 1–2 周打通存储和 BI，验收是「导入 → 查询 → 一张图」；阶段 1 第 3–4 周补采集；阶段 2 第 5–8 周做建模分层，要三层结构加 3 张指标表；阶段 3 第 9–12 周做 BI 与治理。</p>
+
+        <div class="callout callout--blue">
+          <span class="callout__icon"><svg class="icon"><use href="#i-info"></use></svg></span>
+          <div><div class="callout__title">唯一的权威在上游</div><p>看板数据.json 里写着它的来源：派生自职业发展规划和学习路线两个文档，结论以上游为准。看板只负责把计划变成能看的形态，不负责发明计划。</p></div>
+        </div>
+
+        <h2 id="s3">三、构建脚本：把 JSON 塞进模板</h2>
+        <p>生成器是 构建看板.mjs，做的事很少：读 看板数据.json，读 模板.html，把 /*__DATA__*/ 占位符替换成序列化后的 JSON，写出 职业工程看板.html；顺带把里程碑写成 职业工程里程碑.ics。</p>
+        <pre class="post-pre"><code>node 构建看板.mjs</code></pre>
+        <p>脚本不大，但该拦的都拦了：JSON 解析失败、缺少 环节 或 周次 数组、模板里找不到占位符，都会打印 [构建失败] 并以退出码 1 结束——宁可不生成，也不生成一张缺数据的页面。写进 HTML 前，JSON 会先缩进，再把尖括号转义成 \u003c，免得字符串被当成标签解析。</p>
+
+        <h2 id="s4">四、三张视图，加一张</h2>
+        <p>看板打开后有四块，用标签切换：</p>
+        <ul>
+          <li><strong>建设链路：</strong>采集 → 存储 → 建模 → BI → 治理，五个节点横排。点开任一环节看现状、要补与验收；勾掉「验收已通过」，进度从 0 / 5 验收开始动。</li>
+          <li><strong>12 周排期：</strong>四个阶段按周排成甘特条，点环节会高亮它所在的阶段，能一眼看出哪几周并行。</li>
+          <li><strong>日历：</strong>按月铺开，阶段用颜色区分，里程碑打点，悬停能看到标题和说明。</li>
+          <li><strong>每日分配：</strong>08:00–22:00 的竖直时间轴，四段安排按真实起止时间落块。</li>
+        </ul>
+        <p>前三个视图是建档时定的；每日分配是后来补的。README 的变更记录写着：最初是「三视图 + 进度打勾 + 日历导出」，同一天又追加了「每日分配」小时–分钟视图。进度存在浏览器本地（localStorage）：不用后端，勾完刷新不丢；但换设备、换浏览器就是另一份进度，不同步也不备份。</p>
+
+        <h2 id="s5">五、每日分配：把一天拆到小时–分钟</h2>
+        <p>这张视图回答另一个问题：计划落到每天到底怎么过。</p>
+        <div class="post-table-wrap">
+          <table class="post-time-table">
+            <thead>
+              <tr><th>时间</th><th>安排</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>09:00–10:30</td><td>投递与跟进：确认回复 → 跟进 3 家有回音 → 补台账 / 投 1–2 家</td></tr>
+              <tr><td>10:30–11:30</td><td>行测 · 图形 + 资料：图形 8 题 + 资料 2–3 篇，限时 60 秒/题</td></tr>
+              <tr><td>14:00–17:00</td><td>数据建设：前 30 分钟手写 SQL 5 题，之后推阶段 0 最小闭环</td></tr>
+              <tr><td>19:30–21:00</td><td>行测 · 银行 EPI：言语 + 数量 + 判断，限时成套</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>JSON 里还有一条每日说明：每天 7 小时、周一至周六、周日休息，睡前 5 分钟查邮箱，笔试前 5 天暂停数据建设。时间轴按 08:00–22:00 铺开，每小时 48 px，块的位置由起止时间换算——改 JSON 里的时间，块会自己挪。</p>
+
+        <h2 id="s6">六、里程碑导出 .ics</h2>
+        <p>日历视图里提供 职业工程里程碑.ics 下载。构建脚本把每条带日期的里程碑写成全天日程：UID 用日期加序号生成，DTSTART/DTEND 是日期值，标题与说明转义后放进 SUMMARY 和 DESCRIPTION。我真正盯的是五个节点：</p>
+        <div class="post-table-wrap">
+          <table class="post-time-table">
+            <thead>
+              <tr><th>日期</th><th>里程碑</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2026-10-18</td><td>阶段 0 完成</td></tr>
+              <tr><td>2026-11-01</td><td>阶段 1 完成</td></tr>
+              <tr><td>2026-11-15</td><td>洞察平台 MVP 上线</td></tr>
+              <tr><td>2026-12-06</td><td>阶段 2 完成</td></tr>
+              <tr><td>2027-01-03</td><td>阶段 3 完成</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>导入手机日历后，这些日期会以全天日程出现，不用再靠记；日期变了就重新生成、重新导入一次。</p>
+
+        <h2 id="s7">七、维护约定：改 JSON，重跑</h2>
+        <p>为了让它一直能用，我定了同步约定：任何时间或日期安排变更都走三步——改 看板数据.json，跑 node 构建看板.mjs，双击 职业工程看板.html 看结果。投递节奏、行测安排、数据建设排期、笔试/面试日期都算在内。</p>
+        <p>几个边界必须记住：产物 HTML 和 .ics 不要手改，会被覆盖；双击打开是 file://，页面读不了外部 JSON，所以必须重跑构建；如果起一个本地服务（python -m http.server 8000），页面会自动拉取 JSON，改完刷新就行。</p>
+
+        <div class="callout callout--red">
+          <span class="callout__icon"><svg class="icon"><use href="#i-alert"></use></svg></span>
+          <div><div class="callout__title">给未来的自己的一句话</div><p>要改看板内容，只动 看板数据.json，然后跑 node 构建看板.mjs；不要手改产物。</p></div>
+        </div>
+
+        <h2 id="s8">八、反思</h2>
+        <p>看板做完之后，计划第一次有了形状：开工前看一眼就知道今天该推哪个环节，里程碑进了手机日历，勾选数就是进度。它没有让我变得更自律，但至少拖了多久一眼能看见。</p>
+        <p>两处不足：进度只存在本地浏览器里，换设备就断；JSON 仍要手动跟着上游文档改，上游一变，看板不会自己知道。要做到长期可用，得把进度挪到能同步的地方——那是另一个项目了。</p>
+        <p>现在这张看板已经完成了它的任务：把「12 周要做什么」从脑子里拿出来，变成能看、能打勾、能进日历的东西。</p>
+      </div>
+
+      <footer class="article-foot">
+        <div class="article-foot__tags">
+          <span class="tag tag--ink">JSON</span>
+          <span class="tag tag--ink">Node.js</span>
+          <span class="tag tag--ink">.ics</span>
+        </div>
+        <button class="like-btn" type="button" data-like="post-kanban" data-like-base="0">
+          <svg class="icon"><use href="#i-heart"></use></svg>
+          <span>喜欢</span><span data-like-count>0</span>
+        </button>
+      </footer>
+    </article>
+
+    <aside class="article-aside">
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon"><svg class="icon"><use href="#i-list"></use></svg></span>
+          <h2 class="sec-head__title">本文目录</h2>
+        </div>
+        <nav class="toc-list" data-toc aria-label="文章目录">
+          <a href="#s1">一、问题：学一点，散一桌</a>
+          <a href="#s2">二、只留一份数据：看板数据.json</a>
+          <a href="#s3">三、构建脚本：把 JSON 塞进模板</a>
+          <a href="#s4">四、三张视图，加一张</a>
+          <a href="#s5">五、每日分配：把一天拆到小时–分钟</a>
+          <a href="#s6">六、里程碑导出 .ics</a>
+          <a href="#s7">七、维护约定：改 JSON，重跑</a>
+          <a href="#s8">八、反思</a>
+        </nav>
+      </section>
+
+      <section class="card">
+        <div class="sec-head">
+          <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-about"></use></svg></span>
+          <h2 class="sec-head__title">关于我</h2>
+        </div>
+        <p class="muted" style="font-size:12.5px">应用统计学 2027 届，在找数据分析相关的工作。这里放的都是在做的项目与写下来的复盘。</p>
+        <div class="btn-row" style="margin-top:12px">
+          <a class="btn btn--sm btn--soft" href="works.html">看作品</a>
+          <a class="btn btn--sm btn--ghost" href="about.html">关于</a>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="next-prev" aria-label="上一篇下一篇">
+    <a href="post-film.html"><div class="next-prev__label">← 上一篇</div><div class="next-prev__title">95 秒宣传片：每一帧都是程序画的</div></a>
+    <a class="next-prev--next" href="posts.html"><div class="next-prev__label">回到列表 →</div><div class="next-prev__title">全部随笔</div></a>
+  </nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

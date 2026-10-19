@@ -1,0 +1,237 @@
+/* ==========================================================================
+   作品区补充样式（works.html / work-*.html）
+   只放 base.css 没覆盖到的作品区小组件；所有选择器带 works- 前缀，不碰共享文件。
+   颜色一律用 base.css 的 CSS 变量，三套装饰主题下自动适配。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 作品列表页：科研卡的非图片封面
+   （作品区只能用现成的 dm / game / film 素材，科研没有对应截图，
+     这里用图标 + 标签做一块诚实的封面，不拿不相干的图片凑数）
+   -------------------------------------------------------------------------- */
+.works-media-plain {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  background:
+    radial-gradient(circle at 76% 20%, var(--red-soft), transparent 56%),
+    radial-gradient(circle at 18% 82%, var(--brand-soft), transparent 60%),
+    var(--surface-tint);
+}
+.works-media-plain::after { display: none; }
+.works-media-plain__icons { display: flex; align-items: center; gap: 20px; }
+.works-media-plain__icons .icon {
+  width: 36px;
+  height: 36px;
+  color: var(--brand);
+  stroke-width: 1.5;
+}
+.works-media-plain__icons .icon:nth-child(2) { color: var(--red); }
+.works-media-plain__label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text-2);
+}
+
+/* --------------------------------------------------------------------------
+   2. 作品列表页：结尾引导
+   -------------------------------------------------------------------------- */
+.works-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: var(--gap);
+  background: linear-gradient(135deg, var(--brand-mist), var(--surface) 58%, var(--red-soft));
+}
+.works-cta__title { font-size: 20px; line-height: 1.5; }
+.works-cta__desc {
+  margin-top: 6px;
+  max-width: 620px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-3);
+}
+
+/* --------------------------------------------------------------------------
+   3. 详情页：区块节奏与概览两栏
+   -------------------------------------------------------------------------- */
+.works-section + .works-section { margin-top: var(--gap); }
+.works-overview { min-width: 0; }
+.works-overview .btn-row { margin-top: 14px; }
+.works-overview__lead {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--text-3);
+}
+.works-overview .detail-meta-grid { margin-top: 16px; }
+.works-metrics { margin-top: 18px; }
+.works-prose > h2:first-child,
+.works-prose > h3:first-child,
+.works-prose > p:first-child { margin-top: 0; }
+.works-note {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-3);
+}
+
+/* --------------------------------------------------------------------------
+   4. 详情页：小特性块（系统构成 / 视觉做法）
+   -------------------------------------------------------------------------- */
+.works-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.works-feature {
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+}
+.works-feature__icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-bottom: 10px;
+  border-radius: 9px;
+  color: var(--brand);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.works-feature__icon--red { color: var(--red); }
+.works-feature__icon .icon { width: 15px; height: 15px; }
+.works-feature__title { font-size: 15px; font-weight: 800; color: var(--text-1); margin-bottom: 4px; }
+.works-feature__desc { font-size: 12.5px; line-height: 1.7; color: var(--text-3); }
+
+/* --------------------------------------------------------------------------
+   5. 详情页：图片网格（figure-grid 里套 .gallery-item，复用全站灯箱）
+   -------------------------------------------------------------------------- */
+.works-figure-grid { align-items: start; }
+.works-note + .works-figure-grid { margin-top: 14px; }
+.works-figure-grid figure { margin: 0; }
+.works-figure-grid figcaption { min-height: 2.9em; }
+
+/* --------------------------------------------------------------------------
+   6. 详情页：视频与窄屏可横滚的表格
+   -------------------------------------------------------------------------- */
+.works-video-frame video { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+.works-video-note {
+  margin-top: 12px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text-3);
+}
+.works-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  -webkit-overflow-scrolling: touch;
+}
+.works-table-wrap > table { margin: 0; min-width: 540px; }
+
+/* --------------------------------------------------------------------------
+   7. 科研页：论文卡 / 技能三栏
+   -------------------------------------------------------------------------- */
+.works-paper {
+  padding: 20px 22px;
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+}
+.works-paper__title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.55;
+  color: var(--text-1);
+}
+.works-paper__zh {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-3);
+}
+.works-paper__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+.works-paper__doi {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-3);
+  word-break: break-all;
+}
+.works-paper__doi a {
+  color: var(--brand-deep);
+  font-weight: 700;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--brand) 35%, transparent);
+  padding-bottom: 1px;
+}
+.works-paper__doi a:hover { border-bottom-color: var(--brand); }
+
+.works-skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.works-skill-block {
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+}
+.works-skill-block h3 { font-size: 15px; margin-bottom: 8px; }
+.works-skill-block ul { display: grid; gap: 6px; }
+.works-skill-block li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--text-3);
+}
+.works-skill-block li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.66em;
+  width: 5px;
+  height: 5px;
+  border-radius: 2px;
+  background: var(--brand);
+  transform: rotate(45deg);
+}
+.works-skill-block li strong { color: var(--text-1); }
+
+/* --------------------------------------------------------------------------
+   8. 响应式
+   -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .works-feature-grid,
+  .works-skill-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .works-cta { padding: 20px; }
+  .works-cta__title { font-size: 17px; }
+  .works-paper { padding: 16px 18px; }
+  .works-paper__title { font-size: 16px; }
+  .works-media-plain__icons .icon { width: 30px; height: 30px; }
+
+  /* 窄屏：章节头的标记换行，避免标题被挤成两行 */
+  .works-section .sec-head { flex-wrap: wrap; }
+  .works-section .sec-head__count { margin-left: 44px; }
+
+  /* 窄屏：分镜表缩小字号并允许单元格换行，页面本身不横向滚动 */
+  .works-table-wrap > table { min-width: 0; font-size: 12px; }
+  .works-table-wrap th,
+  .works-table-wrap td { padding: 8px 9px; }
+  .works-table-wrap th { white-space: normal; }
+}
