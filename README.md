@@ -4,9 +4,15 @@
 > 蓝 / 白 / 黑主色，红色点缀，鲸与鹤是意象。
 > 纯静态：HTML + CSS + 原生 JS，无框架、无构建、无外部 CDN。
 
+**已上线：<https://myrwin6868.github.io/>**（手机、电脑、平板直接打开；求职时发这个链接即可）
+
 ---
 
 ## 一、怎么打开
+
+### 公网地址
+
+直接访问 **<https://myrwin6868.github.io/>**。源码在 <https://github.com/MyRwin6868/MyRwin6868.github.io>（公开仓库，GitHub Pages 免费托管，HTTPS 自带）。
 
 ### 本地看（最简单）
 
@@ -23,17 +29,30 @@ python -m http.server 8080
 
 然后浏览器打开 `http://localhost:8080`。
 
-### 部署到公网
+### 改完怎么更新线上
 
-整站是纯静态文件，把 `网站/` 目录整体上传到任意静态托管即可：
+`D:\职业工程\网站` 本身就是这个 GitHub 仓库的工作副本（`.git` 已配好）。改完文件后：
 
-| 平台 | 做法 | 备注 |
-|---|---|---|
-| Cloudflare Pages | 拖拽 `网站/` 目录上传，或连 Git 仓库 | 免费，国内访问相对稳 |
-| GitHub Pages | 把目录内容推到 `gh-pages` 分支 / `docs/` 目录 | 单文件上限 100 MB，本站在范围内 |
-| Vercel / Netlify | 直接拖拽上传 | 架构选「静态站点」 |
+```bash
+cd D:\职业工程\网站
+git add -A
+git commit -m "更新：改了什么"
+git -c http.version=HTTP/1.1 push
+```
 
-**注意**：`assets/video/promo-web.mp4` 约 19.7 MB，属于大文件；如果托管平台限制单文件大小，可以在 `work-film.html` 里换成 B 站 / YouTube 外链嵌入。
+推送后 GitHub Pages 大约 1 分钟内自动重建，刷新公网地址即可看到。`.gitignore` 已排除 `_qa/`，不会把测试截图传上去。
+
+> 注意本机访问 github.com 需要走系统代理（本机 127.0.0.1:33210），仓库里已给 `.git/config` 配好代理；换电脑时如果 push 失败，重新配置一次 `git config http.proxy` 即可。`gh` 命令走 api.github.com，不受影响。
+
+### 国内访问说明
+
+GitHub Pages 的 `github.io` 域名在国内**多数网络可直接打开、不需要翻墙**，但偶发 DNS 抽风或加载慢（这是 GitHub 自身线路问题，不是站点问题）。已实测本机不走代理直连可访问。如果 HR 那边确实打不开，备选方案：
+
+| 方案 | 说明 |
+|---|---|
+| Cloudflare Pages | 免费，绑定 `*.pages.dev` 或自有域名，需要 Cloudflare 账号 |
+| 国内对象存储静态托管 | 阿里云 OSS / 腾讯云 COS，国内最快；绑定自定义域名需备案，用默认域名则不用 |
+| 自有服务器 / 域名 | 把这套纯静态文件丢上去即可，`assets/` 相对路径不用改 |
 
 ---
 
@@ -54,6 +73,10 @@ python -m http.server 8080
 ├─ post-film.html           随笔：程序化宣传片
 ├─ post-kanban.html         随笔：看板管学习
 ├─ about.html               关于（时间线 / 技能 / 本站说明 / 联系方式）
+├─ 404.html                 自定义 404（找不到页面时的鲸鱼提示页）
+├─ robots.txt               搜索引擎抓取规则
+├─ sitemap.xml              站点地图（13 个页面）
+├─ .nojekyll                跳过 GitHub Pages 的 Jekyll 处理
 ├─ 设计规范.md              团队协作口径（页面骨架、组件、素材、隐私规则）
 ├─ assets\
 │  ├─ css\base.css          全站设计系统（颜色变量、组件、响应式、主题）
@@ -158,11 +181,13 @@ const SITE = {
 3. 三套装饰主题下文字都可读；
 4. 所有链接、图片、视频都能打开；
 5. 搜索能搜到每一页；
-6. 全文搜一遍「本人」「身份证」「151」等敏感词，确认没有残留；
-7. 删除 `_qa/`、`ref_assets/`、`templates/`（可选）后再上传。
+6. 全文搜一遍真实姓名、身份证、手机号等敏感词，确认没有残留；
+7. 本地自检完成后 `git push`，再打开 <https://myrwin6868.github.io/> 抽查 3 个页面 + 手机端；
+8. `_qa/` 已被 `.gitignore` 排除，不会上传；`templates/`、`设计规范.md` 可选是否保留在公开仓库。
 
 ## 七、变更记录
 
 | 日期 | 变化 |
 |---|---|
 | 2026-10-19 | 建站：首页 / 作品 / 图集 / 随笔 / 关于五类页面；三套装饰主题；程序生成音乐播放器；站内搜索；图集灯箱；本地留言板 |
+| 2026-10-19 | 上线 GitHub Pages：<https://myrwin6868.github.io/>；补 404 页、robots.txt、sitemap.xml；公开联系邮箱 `2261167509@qq.com` |
