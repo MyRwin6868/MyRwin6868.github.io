@@ -4,7 +4,14 @@
 > 蓝 / 白 / 黑主色，红色点缀，鲸与鹤是意象。
 > 纯静态：HTML + CSS + 原生 JS，无框架、无构建、无外部 CDN。
 
-**已上线：<https://myrwin6868.github.io/>**（手机、电脑、平板直接打开；求职时发这个链接即可）
+**已上线（双线路）**
+
+| 线路 | 地址 | 更新方式 |
+|---|---|---|
+| GitHub Pages（主） | <https://myrwin6868.github.io/> | `git push` 后约 1 分钟自动更新 |
+| Cloudflare Pages（备） | <https://heyuyu.pages.dev/> | 控制台重新上传资产（可后续接 Git 自动构建） |
+
+求职发链接建议优先发 GitHub 那条（DNS 只有 IPv4，国内直连更稳）；如果对方打不开，再发 Cloudflare 那条。
 
 ---
 
@@ -12,7 +19,10 @@
 
 ### 公网地址
 
-直接访问 **<https://myrwin6868.github.io/>**。源码在 <https://github.com/MyRwin6868/MyRwin6868.github.io>（公开仓库，GitHub Pages 免费托管，HTTPS 自带）。
+- 主线路：**<https://myrwin6868.github.io/>**（源码仓库 <https://github.com/MyRwin6868/MyRwin6868.github.io>，公开，GitHub Pages 免费托管）
+- 备用线路：**<https://heyuyu.pages.dev/>**（Cloudflare Pages 免费托管，直接上传资产，无构建）
+
+两套地址内容完全一致，都是 HTTPS，手机/电脑/平板直接打开，不需要安装任何东西。
 
 ### 本地看（最简单）
 
@@ -41,6 +51,14 @@ git -c http.version=HTTP/1.1 push
 ```
 
 推送后 GitHub Pages 大约 1 分钟内自动重建，刷新公网地址即可看到。`.gitignore` 已排除 `_qa/`，不会把测试截图传上去。
+
+Cloudflare Pages 那条是「直传」模式，更新需要手动上传一次：
+
+1. 打开 <https://dash.cloudflare.com/> → Workers & Pages → 项目 `heyuyu`；
+2. 点「创建部署 / Create deployment」→ 上传资产（Upload assets）；
+3. 把新的站点文件夹拖进去 → 部署。或者后续在项目设置里接上 GitHub 仓库，就能和主线路一样 push 自动构建。
+
+> 本机访问 `github.com` 要走系统代理（127.0.0.1:33210），仓库里已给 `.git/config` 配好；这台机器 IPv6 不通，遇到 Cloudflare 控制台慢是正常现象，不影响站点本身。
 
 > 注意本机访问 github.com 需要走系统代理（本机 127.0.0.1:33210），仓库里已给 `.git/config` 配好代理；换电脑时如果 push 失败，重新配置一次 `git config http.proxy` 即可。`gh` 命令走 api.github.com，不受影响。
 
@@ -191,3 +209,4 @@ const SITE = {
 |---|---|
 | 2026-10-19 | 建站：首页 / 作品 / 图集 / 随笔 / 关于五类页面；三套装饰主题；程序生成音乐播放器；站内搜索；图集灯箱；本地留言板 |
 | 2026-10-19 | 上线 GitHub Pages：<https://myrwin6868.github.io/>；补 404 页、robots.txt、sitemap.xml；公开联系邮箱 `2261167509@qq.com` |
+| 2026-10-19 | 增加 Cloudflare Pages 备用线路：<https://heyuyu.pages.dev/>（直传部署，两站内容一致） |
