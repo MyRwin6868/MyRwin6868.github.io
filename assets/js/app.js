@@ -1008,20 +1008,6 @@
     });
   }
 
-  function initVisits() {
-    let visits = 1;
-    try {
-      const key = "mrywin.visits";
-      if (!sessionStorage.getItem("mrywin.session")) {
-        visits = Number(localStorage.getItem(key) || 0) + 1;
-        localStorage.setItem(key, visits);
-        sessionStorage.setItem("mrywin.session", "1");
-      } else {
-        visits = Number(localStorage.getItem(key) || 1);
-      }
-    } catch (e) {}
-    $$("[data-visits]").forEach((el) => { el.dataset.count = visits; });
-  }
 
   function fillStats() {
     $$("[data-stat]").forEach((el) => {
@@ -1123,7 +1109,6 @@
     bindLightbox();
     initPlayer();
     initGuestbook();
-    initVisits();
     fillStats();
     initDays();
     initTypewriter();
