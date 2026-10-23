@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN" data-decor="dawn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6 年出警数据，三个问题 · 鹤与鱼</title>
+<meta name="description" content="校级「崇本杯」数学建模一等奖作品：对某地 6 年出警数据做清洗与建模——SARIMA 预测出警量、7 种模型对比预测各类犯罪频次、双目标优化做警局选址，产出 83 页论文。">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/works.css">
+<script>
+  try { var d = localStorage.getItem("mrywin.decor"); if (["dawn","night","paper"].indexOf(d) < 0) d = "dawn"; document.documentElement.setAttribute("data-decor", d); } catch (e) {}
+</script>
+</head>
+<body data-page="work">
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="site-nav"></div>
+
+<main id="main" class="shell page-main">
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="index.html">首页</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <a href="works.html">作品</a>
+    <svg class="icon"><use href="#i-chevron"></use></svg>
+    <span class="breadcrumb__current">6 年出警数据，三个问题</span>
+  </nav>
+
+  <section class="card page-hero" data-reveal>
+    <div class="page-hero__tag"><span class="tag">数据 · MODELING</span></div>
+    <h1 class="page-hero__title">6 年出警数据<span>三个问题</span></h1>
+    <p class="page-hero__lead">某地 6 年的出警记录、犯罪事件与区域人口数据。三个递进的问题：明天会有多少次出警、哪类案件会多发、新警局该建在哪。对应三条建模路线——SARIMA、多模型对比、双目标选址优化。</p>
+    <div class="page-hero__meta">
+      <span><svg class="icon"><use href="#i-calendar"></use></svg>2025.04—2025.09</span>
+      <span><svg class="icon"><use href="#i-chart"></use></svg>83 页论文</span>
+      <span><svg class="icon"><use href="#i-star"></use></svg>校级一等奖</span>
+      <span><svg class="icon"><use href="#i-tag"></use></svg>R / SARIMA / 优化</span>
+    </div>
+    <div class="page-hero__art" aria-hidden="true"><svg class="icon"><use href="#i-chart"></use></svg></div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-info"></use></svg></span>
+      <h2 class="sec-head__title">项目概览</h2>
+      <span class="sec-head__count">清洗 / 预测 / 优化</span>
+    </div>
+    <div class="prose works-prose">
+      <p>校赛题目给的是城市治安数据。真正花时间的是前处理：6 年跨度的出警记录里字段口径前后不一致、缺失和异常值混在一起，先用 R 做清洗（IQR 判异常）再谈建模。</p>
+      <p>之后三个问题各自要一套方法，不能拿一个模型套到底——这也是这次最大的收获：<strong>先判断问题的数据形态，再选模型</strong>。</p>
+    </div>
+    <div class="metric-row works-metrics">
+      <div class="metric">
+        <div class="metric__num"><b data-count="6">6</b></div>
+        <div class="metric__label">年出警数据</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="3">3</b></div>
+        <div class="metric__label">个递进问题</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="7">7</b></div>
+        <div class="metric__label">种预测模型对比</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num"><b data-count="83">83</b></div>
+        <div class="metric__label">页论文</div>
+      </div>
+    </div>
+    <div class="detail-meta-grid">
+      <div class="detail-meta">
+        <div class="detail-meta__label">竞赛</div>
+        <div class="detail-meta__value">宁波工程学院第十九届「崇本杯」</div>
+      </div>
+      <div class="detail-meta">
+        <div class="detail-meta__label">成绩</div>
+        <div class="detail-meta__value">校级一等奖</div>
+      </div>
+      <div class="detail-meta">
+        <div class="detail-meta__label">主要工具</div>
+        <div class="detail-meta__value">R / MATLAB</div>
+      </div>
+      <div class="detail-meta">
+        <div class="detail-meta__label">团队</div>
+        <div class="detail-meta__value">3 人</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon sec-head__icon--red"><svg class="icon"><use href="#i-code"></use></svg></span>
+      <h2 class="sec-head__title">三条建模路线</h2>
+      <span class="sec-head__count">问题一 / 二 / 三</span>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-item__date">问题一</div>
+        <div class="timeline-item__title">出警次数会是多少 · SARIMA</div>
+        <div class="timeline-item__desc">先做 ADF 平稳性检验，不平稳就通过 d 阶与 D 阶差分转平稳；再结合 ACF / PACF 图，用 BIC 准则定下 (p,d,q)(P,D,Q) 的最优阶数组合。以 2018—2022 为训练集、2023 为验证集，用 MAE / RMSE / MAPE 评价精度，最后外推 2024 年各月出警量。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">问题二</div>
+        <div class="timeline-item__title">哪类案件会多发 · 7 种模型对比</div>
+        <div class="timeline-item__desc">用泊松回归、负二项回归、随机森林、XGBoost、支持向量机等 7 类模型，以月份、空间区域、人口特征为自变量，分别预测各类犯罪事件的发生次数；用 RMSE / MAE / MAPE / R² 逐类比较，给每一类案件选最合适的模型，而不是强行统一。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item__date">问题三</div>
+        <div class="timeline-item__title">新警局该建在哪 · 双目标优化</div>
+        <div class="timeline-item__desc">目标是「整体加权平均响应时间最小」与「高优先级区域响应时间最小」同时兼顾。先用 Floyd 最短路径算法算出各区之间的最短距离，再结合人口密度与事件密度构造综合优先级评分，最后用 TOPSIS 对候选方案排序。</div>
+      </div>
+    </div>
+    <div class="prose works-prose">
+      <p><strong>结论（照实写）</strong>：多数案件类别上负二项回归与支持向量机表现最好；人口密度、区域特征和季节因素是影响发案频次的关键变量。这条结论对治安资源投放有直接含义——不是均匀撒警力，而是按区域特征分优先级。</p>
+    </div>
+  </section>
+
+  <section class="card works-section" data-reveal>
+    <div class="sec-head">
+      <span class="sec-head__icon"><svg class="icon"><use href="#i-star"></use></svg></span>
+      <h2 class="sec-head__title">同一时期的另一题</h2>
+      <span class="sec-head__count">国赛 · 无人机烟幕</span>
+    </div>
+    <div class="prose works-prose">
+      <p>同年参加全国大学生数学建模竞赛，题目是多无人机烟幕干扰弹的投放策略：在导弹来袭的几何约束下，安排无人机的方向角、飞行速度、投放时刻与引信延时，使有效遮蔽时长最大。</p>
+      <p>做法是先用时间参数方程建遮蔽判定条件，用 Brent 方法求遮蔽时段的边界；再把真目标从质点还原成圆柱体，用蒙特卡洛估计配合梯形积分算加权有效遮蔽时长；优化环节用粒子群算法配合黄金分割法搜投放参数。产出 79 页论文。</p>
+    </div>
+    <div class="metric-row works-metrics">
+      <div class="metric">
+        <div class="metric__num"><b data-count="79">79</b></div>
+        <div class="metric__label">页论文</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num">PSO</div>
+        <div class="metric__label">粒子群优化</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num">MC</div>
+        <div class="metric__label">蒙特卡洛估计</div>
+      </div>
+      <div class="metric">
+        <div class="metric__num">Brent</div>
+        <div class="metric__label">边界求根</div>
+      </div>
+    </div>
+    <p class="works-note">按站点隐私约定，这里只写方法与结论，不列队友姓名、学号与联系方式，也不提供论文全文下载。</p>
+  </section>
+
+  <nav class="next-prev" aria-label="作品导航">
+    <a href="work-survey.html">
+      <div class="next-prev__label">← 上一个作品</div>
+      <div class="next-prev__title">832 份问卷与一次结构方程</div>
+    </a>
+    <a class="next-prev--next" href="works.html">
+      <div class="next-prev__label">回到列表 →</div>
+      <div class="next-prev__title">全部作品</div>
+    </a>
+  </nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

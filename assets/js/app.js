@@ -16,8 +16,8 @@
     latin: "HE YU YU · MyRwin",
     tagline: "在数据、兵棋与影像之间，做一只会飞的鹤，一条会潜的鲸。",
     birthday: "2026-10-19",
-    email: "2261167509@qq.com", // 公开的联系邮箱；不想公开就清空
-    stats: { works: 4, gallery: 30, posts: 4, comments: 3 },
+    email: "1319203292@qq.com", // 公开的联系邮箱；不想公开就清空
+    stats: { works: 6, gallery: 30, posts: 4, comments: 3 },
     nav: [
       { page: "home", href: "index.html", label: "首页", icon: "home" },
       { page: "works", href: "works.html", label: "作品", icon: "works" },
@@ -403,6 +403,8 @@
       { type: "作品", icon: "dice", title: "《最后的狼踪》不对称战术兵棋", desc: "纸面规则做成能跑、能测、能联机的原型", href: "work-wargame.html", keys: "兵棋 狼踪 游戏 wargame 联机 ai 原型" },
       { type: "作品", icon: "film", title: "95 秒宣传片：每一帧都是程序画的", desc: "Pillow 逐帧合成 + ffmpeg 编码", href: "work-film.html", keys: "宣传片 视频 影像 film pillow ffmpeg 最后的狼踪" },
       { type: "作品", icon: "chart", title: "竞赛、实习与论文", desc: "统计建模竞赛、政府统计实习与一篇 SSCI", href: "work-research.html", keys: "竞赛 实习 论文 ssci 统计 建模 科研" },
+    { type: "作品", icon: "chart", title: "832 份问卷与一次结构方程", desc: "分层三阶段抽样、832 份有效问卷，SEM 识别传播效能关键因素", href: "work-survey.html", keys: "问卷 市场调查 正大杯 sem 结构方程 量表 spss amos 黑神话 文化传播" },
+    { type: "作品", icon: "database", title: "6 年出警数据，三个问题", desc: "SARIMA 预测、7 种模型对比、双目标选址优化，83 页论文", href: "work-modeling.html", keys: "数学建模 崇本杯 sarima 时间序列 选址 优化 topsis 出警 治安 83页 无人机 烟幕" },
       { type: "图集", icon: "gallery", title: "兵棋截图", desc: "棋盘、部署、回放与战果", href: "gallery.html#wargame", keys: "兵棋 截图 棋盘 部署 回放" },
       { type: "图集", icon: "chart", title: "数据图表", desc: "招标数据分析产出的图表", href: "gallery.html#data", keys: "图表 数据 可视化 roc 分布" },
       { type: "图集", icon: "film", title: "影片截帧", desc: "宣传片的程序化画面", href: "gallery.html#film", keys: "影片 截帧 宣传片" },
